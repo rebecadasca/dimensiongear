@@ -1,0 +1,305 @@
+.recommendations {
+  margin: -1px auto 0;
+  max-width: 1728px;
+  min-height: clamp(43rem, 82svh, 58rem);
+  padding: clamp(4.6rem, 8vw, 8.5rem) var(--home-gutter) clamp(5rem, 8vw, 8rem);
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.layout {
+  align-items: start;
+  display: grid;
+  gap: 0 clamp(2rem, 3.8vw, 4.5rem);
+  grid-template-columns: minmax(32rem, 1.34fr) minmax(22rem, 0.9fr);
+  grid-template-rows: auto auto;
+  max-width: 1460px;
+  position: relative;
+  z-index: 2;
+}
+
+.layout h2 {
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: clamp(2.35rem, 4.65vw, 4.9rem);
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.productCard {
+  color: #ffffff;
+  isolation: isolate;
+  position: relative;
+  transform-origin: center;
+  transition: transform 220ms ease;
+  will-change: transform;
+}
+
+.productCard::before {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  content: '';
+  filter:
+    drop-shadow(0 0 0.65rem rgba(11, 242, 138, 0.3))
+    drop-shadow(0 0 1.4rem rgba(0, 216, 173, 0.22));
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 220ms ease;
+  z-index: -1;
+}
+
+.productCard:hover,
+.productCard:focus-within {
+  transform: scale(1.025);
+}
+
+.productCard:hover::before,
+.productCard:focus-within::before {
+  opacity: 1;
+}
+
+.mouseCardGroup {
+  align-items: end;
+  display: grid;
+  gap: clamp(0.75rem, 1.4vw, 1.35rem);
+  grid-column: 1;
+  grid-row: 2;
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin-top: clamp(3.4rem, 5.8vw, 6rem);
+  position: relative;
+  width: 100%;
+}
+
+.mouseCard {
+  aspect-ratio: 633 / 424;
+  background: url('/design-reference/assets/futuristic-group-mouse.png') center / 100% 100% no-repeat;
+  width: 100%;
+}
+
+.mouseCard::before {
+  background-image: url('/design-reference/assets/futuristic-group-mouse.png');
+}
+
+.headsetCard {
+  align-self: start;
+  aspect-ratio: 449 / 462;
+  background: url('/design-reference/assets/futuristic-group-headset.svg') center / 100% 100% no-repeat;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  width: 100%;
+}
+
+.headsetCard::before {
+  background-image: url('/design-reference/assets/futuristic-group-headset.svg');
+}
+
+.productText {
+  position: absolute;
+  z-index: 3;
+}
+
+.mouseCard .productText {
+  left: 13.8%;
+  top: 22%;
+}
+
+.headsetCard .productText {
+  right: 8%;
+  text-align: right;
+  top: 16%;
+}
+
+.productText h3 {
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: clamp(1.18rem, 2.1vw, 2.2rem);
+  font-weight: 900;
+  line-height: 0.98;
+  margin: 0 0 clamp(1.7rem, 3.4vw, 3.6rem);
+  text-transform: uppercase;
+}
+
+.headsetCard .productText h3 {
+  font-size: clamp(1.08rem, 1.85vw, 2rem);
+  margin-bottom: clamp(0.8rem, 1.45vw, 1.4rem);
+}
+
+.productText p {
+  align-items: center;
+  color: #ffffff;
+  display: flex;
+  font-size: clamp(0.66rem, 0.96vw, 0.95rem);
+  gap: clamp(0.65rem, 1.3vw, 1.25rem);
+  line-height: 1;
+  margin: 0 0 0.85rem;
+}
+
+.headsetCard .productText p {
+  justify-content: flex-end;
+}
+
+.productText strong {
+  color: var(--home-green);
+  font-size: clamp(0.95rem, 1.45vw, 1.45rem);
+  font-weight: 900;
+}
+
+.productText a {
+  align-items: center;
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  border-radius: 0.55rem;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: clamp(0.72rem, 0.82vw, 0.9rem);
+  font-weight: 700;
+  justify-content: center;
+  min-height: clamp(2.65rem, 3.6vw, 3.25rem);
+  padding: 0.75rem clamp(1.35rem, 2vw, 2.05rem);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+  width: fit-content;
+}
+
+.productText a:hover {
+  background: transparent;
+  border-color: #00ff76;
+  box-shadow: 0 0 0.75rem rgba(0, 255, 118, 0.3);
+  color: #00ff76;
+  transform: translateY(-2px);
+}
+
+.productText a:focus-visible {
+  background: transparent;
+  border-color: #00ff76;
+  box-shadow: 0 0 0.75rem rgba(0, 255, 118, 0.3);
+  color: #00ff76;
+  outline: none;
+}
+
+.productText a:active {
+  background: linear-gradient(90deg, #8af20b, #01b1a2);
+  border-color: #ffffff;
+  box-shadow: none;
+  color: #061008;
+  transform: translateY(0);
+}
+
+.mouseDots {
+  height: auto;
+  left: 8.8%;
+  position: absolute;
+  top: 22.5%;
+  width: 1.9%;
+  z-index: 3;
+}
+
+.mouseImage {
+  bottom: 10%;
+  position: absolute;
+  right: 8%;
+  width: 48%;
+  z-index: 2;
+}
+
+.mouseChevrons {
+  align-self: end;
+  grid-column: 2;
+  margin-bottom: 5.5%;
+  position: static;
+  width: clamp(4.2rem, 5.3vw, 5.7rem);
+  z-index: 4;
+}
+
+.headsetImage {
+  bottom: 12%;
+  left: 8%;
+  position: absolute;
+  width: 43%;
+  z-index: 2;
+}
+
+@media (max-width: 1080px) {
+  .layout {
+    gap: 0 clamp(1.25rem, 2.5vw, 2rem);
+    grid-template-columns: minmax(26rem, 1.25fr) minmax(18rem, 0.88fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .recommendations {
+    padding: 4rem var(--home-gutter) 6.5rem;
+  }
+
+  .layout {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .layout h2,
+  .mouseCardGroup,
+  .headsetCard {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .mouseCard,
+  .headsetCard {
+    margin: 0 auto;
+    max-width: 39rem;
+  }
+
+  .mouseCardGroup {
+    margin: 0 auto;
+    max-width: 39rem;
+  }
+
+  .mouseChevrons {
+    margin-bottom: 5%;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .productCard,
+  .productCard::before {
+    transition: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .mouseCard .productText {
+    left: 13%;
+    top: 18%;
+  }
+
+  .mouseDots {
+    left: 7.5%;
+    top: 18.5%;
+  }
+
+  .productText h3 {
+    font-size: clamp(0.92rem, 5vw, 1.25rem);
+  }
+
+  .mouseImage {
+    right: 3%;
+    width: 54%;
+  }
+}

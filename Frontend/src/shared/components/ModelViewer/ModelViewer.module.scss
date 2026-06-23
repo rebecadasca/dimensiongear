@@ -1,0 +1,20 @@
+.viewer {
+  background: transparent;
+  height: 100%;
+  min-height: var(--model-viewer-min-height, 18rem);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.viewer canvas {
+  display: block;
+}
+
+.loading {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}

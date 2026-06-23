@@ -1,0 +1,55 @@
+{
+  "seat": [
+    "CHAIR_SEAT_FRONT",
+    "CHAIR_SEAT_MAIN"
+  ],
+  "backrest": [
+    "CHAIR_BACK_MAIN"
+  ],
+  "pillow": [
+    "CHAIR_PILLOW_LUMBAR",
+    "CHAIR_PILLOW_HEAD_MAIN",
+    "CHAIR_PILLOW_HEAD_DETAIL"
+  ],
+  "accent": [
+    "CHAIR_ACCENT_SEAT_CENTER_STRIPE",
+    "CHAIR_ACCENT_SEAT_TRIM",
+    "CHAIR_ACCENT_BACK_OUTER_TRIM",
+    "CHAIR_ACCENT_LUMBAR_STRIPES",
+    "CHAIR_ACCENT_HEAD_PILLOW_STRIPES",
+    "CHAIR_ACCENT_LOGO"
+  ],
+  "fixed": [
+    "FIXED_Object_13",
+    "FIXED_Object_14",
+    "FIXED_Object_16",
+    "FIXED_Object_17",
+    "FIXED_Object_19",
+    "FIXED_Object_20",
+    "FIXED_Object_22",
+    "FIXED_Object_23",
+    "FIXED_Object_25",
+    "FIXED_Object_26",
+    "FIXED_Object_28",
+    "FIXED_Object_30",
+    "FIXED_Object_32",
+    "FIXED_Object_34",
+    "FIXED_Object_36",
+    "FIXED_Object_38",
+    "FIXED_Object_40",
+    "FIXED_Object_42",
+    "FIXED_Object_44",
+    "FIXED_Object_45",
+    "FIXED_Object_47",
+    "FIXED_Object_49",
+    "FIXED_Object_56",
+    "FIXED_Object_58",
+    "FIXED_Object_59",
+    "FIXED_Object_61",
+    "FIXED_Object_63",
+    "FIXED_Object_65",
+    "FIXED_Object_67",
+    "FIXED_Object_69",
+    "FIXED_Object_71"
+  ]
+}

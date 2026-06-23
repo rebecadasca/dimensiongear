@@ -1,0 +1,57 @@
+.page {
+  --customizer-bg: #030906;
+
+  background: var(--customizer-bg);
+  color: #ffffff;
+  isolation: isolate;
+  min-height: 100svh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.glowLeft,
+.glowRight {
+  display: none;
+}
+
+.contentShell,
+.notFound {
+  margin: 0 auto;
+  max-width: none;
+  min-height: 100svh;
+  padding: 0;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.notFound {
+  align-content: center;
+  display: grid;
+  gap: 1.5rem;
+  padding-left: clamp(1rem, 4vw, 4rem);
+  padding-right: clamp(1rem, 4vw, 4rem);
+}
+
+.notFound h1 {
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  line-height: 1;
+  margin: 0;
+}
+
+.notFound a {
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.45rem;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.notFound a:hover,
+.notFound a:focus-visible {
+  background: #ffffff;
+  color: #07110a;
+  outline: none;
+}

@@ -1,0 +1,732 @@
+.shell {
+  --customizer-content-gutter: clamp(1.25rem, 4vw, 4.25rem);
+
+  background: #07110a;
+  min-height: 100svh;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.heroStage {
+  background:
+    radial-gradient(
+      ellipse at 50% 56%,
+      rgb(0 216 173 / 54%) 0%,
+      rgb(0 216 144 / 33%) 25%,
+      rgb(0 216 173 / 14%) 50%,
+      transparent 73%
+    ),
+    linear-gradient(105deg, #07110a 0%, #092016 50%, #06130c 100%);
+  isolation: isolate;
+  min-height: clamp(29rem, 62svh, 44rem);
+  overflow: hidden;
+  position: relative;
+}
+
+.heroStage::before {
+  background: url('/design-reference/backgrounds/background-stripes.svg') center / 116% 132% no-repeat;
+  content: '';
+  filter: brightness(0.82) saturate(1.55) hue-rotate(28deg);
+  inset: 0;
+  opacity: 0.6;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+.heroStage::after {
+  background: linear-gradient(180deg, transparent 75%, rgba(2, 9, 5, 0.55));
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+.heroHeader {
+  align-items: flex-start;
+  display: flex;
+  gap: 2rem;
+  left: 50%;
+  justify-content: space-between;
+  max-width: 1728px;
+  padding: 0 var(--customizer-content-gutter);
+  pointer-events: none;
+  position: absolute;
+  top: clamp(6rem, 8vw, 7.25rem);
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: 4;
+}
+
+.productMeta,
+.doneAction {
+  pointer-events: auto;
+}
+
+.productMeta h1,
+.productMeta p {
+  margin: 0;
+}
+
+.productMeta h1 {
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.45vw, 1.28rem);
+  font-weight: 900;
+  line-height: 1.2;
+  max-width: 25rem;
+}
+
+.productMeta p {
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.25vw, 2rem);
+  font-weight: 900;
+  line-height: 1;
+  margin-top: 0.7rem;
+}
+
+.previewActions {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+  margin-top: 1.55rem;
+}
+
+.previewButton,
+.doneButton {
+  background: rgba(2, 11, 6, 0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.94);
+  border-radius: 0.45rem;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  min-height: 2.35rem;
+  padding: 0.4rem 1rem;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+  transform 180ms ease;
+}
+
+.previewButton {
+  margin-top: 0;
+}
+
+.exitButton {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 800;
+  gap: 0.45rem;
+  margin-top: 0;
+  padding: 0;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.exitButton::before {
+  background: url('/design-reference/icons/close-icon.svg') center / contain no-repeat;
+  content: '';
+  display: block;
+  filter: brightness(0) invert(1);
+  height: 1.1rem;
+  width: 1.1rem;
+}
+
+.doneButton {
+  min-width: 6.25rem;
+}
+
+.previewButton:hover,
+.previewButton:focus-visible,
+.doneButton:hover,
+.doneButton:focus-visible {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #07110a;
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.exitButton:hover,
+.exitButton:focus-visible {
+  opacity: 0.78;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.doneAction {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.doneAction span {
+  color: #8af20b;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.viewerStage {
+  align-items: center;
+  display: grid;
+  inset: 4.5rem 0 0;
+  justify-items: center;
+  position: absolute;
+}
+
+.viewerStage > * {
+  position: relative;
+  z-index: 1;
+}
+
+.controls {
+  align-content: center;
+  align-items: center;
+  background: #06100a;
+  color: #ffffff;
+  display: grid;
+  gap: clamp(1.1rem, 1.75vw, 1.6rem);
+  justify-items: center;
+  min-height: clamp(15rem, 31svh, 19rem);
+  padding: clamp(1.25rem, 1.6vw, 1.55rem) clamp(1rem, 3vw, 2.5rem);
+  width: 100%;
+}
+
+.partNavigator {
+  align-items: center;
+  display: grid;
+  gap: clamp(3rem, 9vw, 8rem);
+  grid-template-columns: auto minmax(0, auto) auto;
+  justify-content: center;
+  width: min(100%, 48rem);
+}
+
+.partNavigator > div {
+  align-items: baseline;
+  display: flex;
+  gap: 1.8rem;
+  justify-content: center;
+  min-width: 17rem;
+}
+
+.partNavigator h2 {
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+}
+
+.partNavigator strong {
+  color: rgba(255, 255, 255, 0.58);
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.55vw, 1.4rem);
+  font-weight: 900;
+}
+
+.navButton {
+  align-items: center;
+  background: transparent;
+  border: 1.4px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  color: #ffffff;
+  display: inline-flex;
+  height: clamp(2.55rem, 3.2vw, 2.95rem);
+  justify-content: center;
+  padding: 0;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+  width: clamp(2.55rem, 3.2vw, 2.95rem);
+}
+
+.navButton:hover,
+.navButton:focus-visible {
+  background: #ffffff;
+  color: #07110a;
+  outline: none;
+  transform: translateX(-2px);
+}
+
+.nextButton:hover,
+.nextButton:focus-visible {
+  transform: translateX(2px);
+}
+
+.navButton span {
+  border-color: currentColor;
+  border-style: solid;
+  border-width: 0 0 2px 2px;
+  display: block;
+  height: 0.72rem;
+  transform: translateX(0.12rem) rotate(45deg);
+  width: 0.72rem;
+}
+
+.nextButton span {
+  border-width: 2px 2px 0 0;
+  transform: translateX(-0.12rem) rotate(45deg);
+}
+
+.materialTabs {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.5rem, 3vw, 2.7rem);
+  justify-content: center;
+}
+
+.materialTabs button {
+  background: transparent;
+  border: 1.3px solid transparent;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.78rem;
+  font-weight: 800;
+  min-height: 2.35rem;
+  min-width: 5.5rem;
+  padding: 0.35rem 1rem;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.materialTabs button:hover,
+.materialTabs button:focus-visible,
+.materialTabs .selected {
+  border-color: rgba(255, 255, 255, 0.95);
+  color: #ffffff;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.colorList {
+  align-items: start;
+  display: grid;
+  gap: clamp(0.8rem, 2.2vw, 1.75rem);
+  grid-template-columns: repeat(8, minmax(0, 3rem));
+  justify-content: center;
+  width: 100%;
+}
+
+.colorList button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #ffffff;
+  display: grid;
+  gap: 0.55rem;
+  justify-items: center;
+  padding: 0;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.colorList button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+.colorList button:not(:disabled):hover,
+.colorList button:not(:disabled):focus-visible,
+.colorList .selectedColor {
+  outline: none;
+  transform: translateY(-3px);
+}
+
+.colorList span {
+  background: var(--swatch-color);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.28);
+  height: clamp(1.8rem, 2.2vw, 2.1rem);
+  width: clamp(1.8rem, 2.2vw, 2.1rem);
+}
+
+.selectedColor span {
+  box-shadow:
+    0 0 0 3px #06100a,
+    0 0 0 5px rgba(255, 255, 255, 0.78),
+    0 0.45rem 1rem rgba(0, 0, 0, 0.4);
+}
+
+.colorList strong {
+  color: #ffffff;
+  font-size: 0.67rem;
+  line-height: 1;
+}
+
+.colorList small {
+  color: #ffca6a;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.outOfStockColor span {
+  background-image: linear-gradient(135deg, transparent 43%, rgba(255, 255, 255, 0.9) 45%, rgba(255, 255, 255, 0.9) 52%, transparent 54%);
+}
+
+.dialogBackdrop {
+  align-items: center;
+  animation: backdropIn 180ms ease-out;
+  background: rgba(1, 7, 4, 0.76);
+  display: grid;
+  inset: 0;
+  justify-items: center;
+  padding: 1rem;
+  position: fixed;
+  z-index: 100;
+}
+
+.doneDialog {
+  animation: dialogIn 220ms ease-out;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(0, 255, 118, 0.13), transparent 40%),
+    #0a1710;
+  border: 1px solid rgba(81, 255, 209, 0.25);
+  border-radius: 1rem;
+  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.52);
+  color: #ffffff;
+  max-width: 33rem;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  width: 100%;
+}
+
+.dialogEyebrow {
+  color: #8af20b;
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+}
+
+.doneDialog h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.15rem);
+  line-height: 1.18;
+  margin: 0;
+}
+
+.doneDialog p {
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.6;
+  margin: 1rem 0 0;
+}
+
+.dialogActions {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 1.75rem;
+}
+
+.primaryDialogButton,
+.secondaryDialogButton {
+  border: 1px solid #8af20b;
+  border-radius: 0.55rem;
+  font-weight: 900;
+  min-height: 3rem;
+  padding: 0.65rem 1rem;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.primaryDialogButton {
+  background: #8af20b;
+  color: #06100a;
+}
+
+.secondaryDialogButton {
+  background: transparent;
+  color: #ffffff;
+}
+
+.primaryDialogButton:hover,
+.primaryDialogButton:focus-visible,
+.secondaryDialogButton:hover,
+.secondaryDialogButton:focus-visible {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #06100a;
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.sceneOverlay {
+  background: #020806;
+  color: #ffffff;
+  inset: 0;
+  overflow: hidden;
+  position: fixed;
+  z-index: 2000;
+}
+
+.sceneChrome {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+
+.sceneHeader {
+  align-items: flex-start;
+  display: flex;
+  gap: clamp(1rem, 2vw, 1.8rem);
+  justify-content: flex-start;
+  left: 0;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.sceneStatus {
+  margin: 0;
+}
+
+.sceneBackButton,
+.sceneControls button,
+.sceneFinishButton {
+  pointer-events: auto;
+}
+
+.sceneBackButton {
+  align-items: center;
+  backdrop-filter: blur(14px);
+  background: #8af20b;
+  border: 1px solid #8af20b;
+  border-radius: 0.55rem;
+  color: #06100a;
+  display: inline-flex;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 900;
+  gap: 0.45rem;
+  min-height: 2.7rem;
+  padding: 0.65rem 1rem;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.sceneBackButton::before {
+  border-color: currentColor;
+  border-style: solid;
+  border-width: 0 0 2px 2px;
+  content: '';
+  height: 0.65rem;
+  transform: rotate(45deg);
+  width: 0.65rem;
+}
+
+.sceneBackButton:hover,
+.sceneBackButton:focus-visible {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #06100a;
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.sceneStatus {
+  background: rgba(2, 8, 6, 0.78);
+  border: 1px solid rgba(138, 242, 11, 0.32);
+  border-radius: 0.55rem;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 900;
+  left: 50%;
+  padding: 0.65rem 0.95rem;
+  pointer-events: auto;
+  position: absolute;
+  top: clamp(5.75rem, 8vw, 7rem);
+  transform: translateX(-50%);
+}
+
+.sceneControls {
+  bottom: clamp(1rem, 2.4vw, 2rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  left: clamp(1rem, 2.5vw, 2rem);
+  position: absolute;
+}
+
+.sceneControls button,
+.sceneFinishButton {
+  backdrop-filter: blur(14px);
+  background: rgba(2, 8, 6, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  border-radius: 0.55rem;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 900;
+  min-height: 2.7rem;
+  padding: 0.65rem 1rem;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.sceneControls button:hover,
+.sceneControls button:focus-visible,
+.sceneFinishButton:hover,
+.sceneFinishButton:focus-visible,
+.activeSceneControl {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #06100a;
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.sceneFinishButton {
+  background: #8af20b;
+  border-color: #8af20b;
+  color: #06100a;
+  position: absolute;
+  right: clamp(1rem, 2.5vw, 2rem);
+  top: clamp(1rem, 2.5vw, 2rem);
+}
+
+@keyframes backdropIn {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes dialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.98);
+  }
+}
+
+@media (max-width: 760px) {
+  .heroStage {
+    min-height: 35rem;
+  }
+
+  .heroHeader {
+    top: 7.5rem;
+  }
+
+  .productMeta h1 {
+    max-width: 13rem;
+  }
+
+  .doneButton {
+    min-width: 5rem;
+  }
+
+  .viewerStage {
+    inset: 8.5rem 0 0;
+  }
+
+  .controls {
+    align-content: center;
+    min-height: 20rem;
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .partNavigator {
+    gap: 1.2rem;
+  }
+
+  .partNavigator > div {
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 10rem;
+  }
+
+  .materialTabs {
+    gap: 0.25rem;
+  }
+
+  .colorList {
+    gap: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 3rem));
+  }
+
+  .dialogActions {
+    grid-template-columns: 1fr;
+  }
+
+  .sceneHeader {
+    padding: 1rem;
+  }
+
+  .sceneStatus {
+    max-width: calc(100% - 2rem);
+    top: 4.75rem;
+  }
+
+  .sceneControls {
+    bottom: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    right: 1rem;
+  }
+
+  .sceneControls button,
+  .sceneFinishButton {
+    width: 100%;
+  }
+
+  .sceneBackButton,
+  .sceneFinishButton {
+    font-size: 0.76rem;
+    min-height: 2.45rem;
+    padding: 0.55rem 0.7rem;
+  }
+
+  .sceneBackButton {
+    max-width: calc(50% - 0.25rem);
+  }
+
+  .sceneFinishButton {
+    left: auto;
+    right: 1rem;
+    top: 1rem;
+    width: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialogBackdrop,
+  .doneDialog {
+    animation: none;
+  }
+}

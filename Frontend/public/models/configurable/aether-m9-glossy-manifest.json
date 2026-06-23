@@ -1,0 +1,89 @@
+{
+  "materials": [
+    "black",
+    "green",
+    "grey",
+    "grill1",
+    "grill2"
+  ],
+  "meshes": [
+    {
+      "name": "Box123_grey_0",
+      "materials": [
+        "grey"
+      ]
+    },
+    {
+      "name": "Cylinder011_green_0",
+      "materials": [
+        "green"
+      ]
+    },
+    {
+      "name": "Line022_grill2_0",
+      "materials": [
+        "grill2"
+      ]
+    },
+    {
+      "name": "Line024_grill1_0",
+      "materials": [
+        "grill1"
+      ]
+    },
+    {
+      "name": "Plane031_black_0",
+      "materials": [
+        "black"
+      ]
+    },
+    {
+      "name": "Plane031_black_0.001",
+      "materials": [
+        "black"
+      ]
+    },
+    {
+      "name": "Plane031_black_0.002",
+      "materials": [
+        "black"
+      ]
+    },
+    {
+      "name": "Plane031_black_0.003",
+      "materials": [
+        "black"
+      ]
+    },
+    {
+      "name": "Plane031_black_0.004",
+      "materials": [
+        "black"
+      ]
+    },
+    {
+      "name": "Plane031_black_0.005",
+      "materials": [
+        "black"
+      ]
+    },
+    {
+      "name": "Plane031_black_0.006",
+      "materials": [
+        "black"
+      ]
+    },
+    {
+      "name": "Plane031_black_0.007",
+      "materials": [
+        "black"
+      ]
+    },
+    {
+      "name": "Plane031_black_0.008",
+      "materials": [
+        "black"
+      ]
+    }
+  ]
+}

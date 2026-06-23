@@ -1,0 +1,126 @@
+id / slug: D-01
+sku:
+name: Gaming Wireless RAZER Barracuda X
+category: headset
+productType: classic
+status: active 
+
+currentPriceRON: 323,19
+previousPriceRON: 359,10
+rating: 4,57
+reviewCount: 53
+garantie: 24 luni
+microfonInclus: da
+frecventaCasti: 20 Hz – 20 kHz
+
+shortDescription: One headset to play them all—the Razer Barracuda X is a versatile, lightweight wireless gaming headset built for seamless use across your PC, console, and mobile devices. Backed by an intelligent dual-wireless design, conveniently switch between high-performance gaming at home and seamless mobile use on the streets.
+longDescription:Capable of connecting to a 2.4GHz and Bluetooth device at once, SmartSwitch enables seamless shifting between both for unrivalled convenience.
+
+Calls from a connected Bluetooth device will automatically come through, so you can conveniently take the call then switch back to the game audio without ever removing the headset.
+
+Do Not Disturb Mode can be toggled on in the Razer Audio app if you want to block incoming calls from coming through, while a dedicated button on the headset allows you to manually switch between HyperSpeed Wireless and Bluetooth audio sources.
+
+Colors: 
+id: D-01-01
+label: Quartz
+hex: E5A3B0
+
+id: D-01-02
+label: Black
+hex: 161314
+--------------------------------------------------------------------------------------------------------------------------------
+
+id / slug: D-02
+sku:
+name: Gaming Wireless Headphones RAZER BlackShark V3 PlayStation Licensed
+category: headset
+productType: classic
+status: active 
+
+currentPriceRON: 799,90
+previousPriceRON: 849,95
+rating: 0
+reviewCount: 0
+lunigarantie: 24
+microfonInclus: true
+frecventaCasti: 20 Hz – 28000 Hz
+
+shortDescription: Make your intent to win loud and clear with the Razer BlackShark V3 for PlayStation—a wireless esports headset evolved for competition. From ultra-low latency wireless and upgraded audio performance to its exceptional super wideband mic, this PlayStation headset gives you every edge to dominate.
+longDescription:Outpace all competition with the fastest wireless technology optimized for ultra-low latency as low as 10 ms, delivering near-instantaneous audio. Perfect for clutch plays and split-second decisions.By covering a wider frequency range of sound, our PS5 gaming headset features a next-gen detachable mic that can capture and transmit a tremendous amount of detail in your voice, so that every shotcall to your team sounds clear, rich, and natural. High-definition, Pro-level voice quality
+By covering a wider frequency range of sound, our PS5 gaming headset features a next-gen detachable mic that can capture and transmit a tremendous amount of detail in your voice, so that every shotcall to your team sounds clear, rich, and natural.
+
+Colors: 
+id: D-02-01
+label: White
+hex: FFFFFF
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+id / slug: D-03
+sku:
+name: Gaming Wireless Headphones Corsair Virtuoso SE
+category: headset
+productType: classic
+status: active 
+
+currentPriceRON: 1399,90
+rating: 3,64
+reviewCount: 11
+lunigarantie: 24 
+microfonInclus: true
+frecventaCasti: 20 Hz – 40000 Hz
+
+shortDescription: From the quietest footstep to the deepest bass tone, you’ll hear more with the VIRTUOSO RGB Wireless. A matched pair of precisely tuned 50 mm high-density neodymium drivers delivers a frequency range of 20 Hz–40,000 Hz—twice what you get from most gaming headsets.
+longDescription:The machined aluminium construction means that the VIRTUOSO RGB Wireless offers the perfect combination of lightweight design, outstanding durability, and maximum comfort.
+
+It is simply one of the best microphones ever used in a headset. With its wide frequency range, this omnidirectional microphone ensures superior voice clarity. It is also fully detachable and features an LED that indicates its status—live or muted.
+
+Colors: 
+id: D-03-01
+label: Gunmetal
+hex: 4B4949
+
+
+Colors: 
+id: D-03-02
+label: White
+hex: FFFFFF
+currentPriceRON: 599,99
+---------------------------------------------------------------------------------------------------------------------------------------
+
+id / slug: D-04
+{
+  slug: "skullcandy-crusher-custom",
+  sku: "HST-VX3D-WL-001",
+
+  name: "Skullcandy Crusher Wireless Custom",
+  category: "headset",
+  productType: "customizable",
+  status: "active",
+
+  currentPriceRON: 899.99,
+  previousPriceRON: 999.99,
+  rating: 4.8,
+  reviewCount: 126,
+
+  shortDescription: "Customizable wireless gaming headset with 3D configuration, surround sound and RGB lighting.",
+
+  longDescription: "Skullcandy Crusher Wireless Custom is a premium gaming headset designed for users who want to personalize their product before placing an order. Through the 3D configurator, customers can select the colors of the ear cups, headband, and decorative elements and preview the final design in real time. The headset features precisely tuned 50 mm neodymium drivers, a low-latency wireless connection, immersive surround sound, and a detachable omnidirectional microphone for clear voice communication. Its lightweight aluminium construction and memory foam ear cushions provide enhanced durability and maximum comfort during extended gaming sessions. Each headset is assembled according to the configuration selected by the customer, which requires an additional production period before delivery.",
+
+  colors: [
+    {
+      id: "color-matte-black",
+      label: "Matte Black",
+      hex: "#1A1A1A",
+      inStock: true
+    },
+   
+
+  lunigarantie: 24 
+  microfonInclus: true
+  frecventaCasti: 20 Hz – 30000 Hz
+  model3DUrl: "Frontend/public/models/headphones_skullcandy_crusher_wireless.glb",
+  estimatedProductionDays: 7,
+  startingPriceRON: 899.99,
+  maxEstimatedPriceRON: 1199.99
+}

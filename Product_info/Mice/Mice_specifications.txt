@@ -1,0 +1,215 @@
+const mice = [
+  {
+    _id: "D-10",
+    slug: "logitech-g102-lightsync-gaming",
+    sku: "MOU910005823",
+
+    name: "Logitech G102 LIGHTSYNC Gaming Mouse",
+ 
+    category: "mouse",
+    productType: "classic",
+    status: "active",
+
+    currentPriceRON: 252.18,
+    previousPriceRON: 449.95,
+    rating: 4.74,
+    reviewCount: 116,
+    shortDescription: "High-performance wired gaming mouse with a 24,000 DPI optical sensor, 11 programmable buttons, adjustable weights, and LIGHTSYNC RGB lighting.",
+
+    longDescription: "The Logitech G502 HERO is a high-performance wired gaming mouse created for players who need advanced control and extensive customization options. Its HERO optical sensor supports sensitivity levels of up to 24,000 DPI, providing accurate tracking for both precise aiming and rapid movements. The mouse features 11 programmable buttons that can be assigned to commands, shortcuts, and macros through Logitech G HUB. An adjustable weight system allows users to modify the balance and overall feel of the device, while the dual-mode scroll wheel supports both precise and rapid scrolling. LIGHTSYNC RGB lighting and onboard profile storage provide additional customization for different games and user preferences.",
+
+    colors: [
+      {
+        id: "D-10-01",
+        label: "Black",
+        hex: "#171717",
+        inStock: true
+      },
+      {
+        id: "D-10-02",
+        label: "White",
+        hex: "#F2F2F2",
+        inStock: false
+      }
+    ]
+  },
+
+   _id: "D-11",
+    slug: "razer-viper-v3-hyperspeed-wireless",
+    sku: "MOURZ0149101R3M",
+
+    name: "Razer Viper V3 HyperSpeed Wireless Gaming Mouse",
+    category: "mouse",
+    productType: "classic",
+    status: "active",
+
+    currentPriceRON: 229.09,
+    previousPriceRON: 289.99,
+    rating: 4.54,
+    reviewCount: 13,
+
+    shortDescription: "Lightweight wireless gaming mouse with a 30,000 DPI optical sensor, six programmable controls, and low-latency HyperSpeed connectivity.",
+
+    longDescription: "The Razer Viper V3 HyperSpeed is a lightweight wireless gaming mouse developed for fast and precise competitive gameplay. Its Razer Focus Pro optical sensor provides a maximum sensitivity of 30,000 DPI and supports detailed adjustments for different games and playing styles. The right-handed symmetrical design is optimized for claw and fingertip grip styles, while the smooth exterior surface provides a secure and comfortable hold. Six programmable controls can be customized through Razer Synapse for shortcuts and in-game commands. HyperSpeed wireless technology provides a stable, low-latency connection, and the efficient battery system supports extended gaming sessions without frequent battery replacement.",
+
+    colors: [
+      {
+        id: "D-11-01",
+        label: "Black",
+        hex: "#111111",
+        inStock: true
+      }
+    ],
+
+    luniGarantie: 24,
+    esteWireless: true,
+    dpiMaxim: 30000,
+    numarButoane: 6,
+    areIluminareRGB: false,
+    tipSenzor: "optic"
+  },
+
+ {
+  _id: "D-12",
+  slug: "logitech-mx-master-3s-pale-gray",
+  sku: "910-006558",
+
+  name: "Logitech MX Master 3S Wireless Mouse – Pale Gray",
+  category: "mouse",
+  productType: "classic",
+  status: "active",
+
+  currentPriceRON: 499.99,
+  previousPriceRON: 599.99,
+  rating: 4.9,
+  reviewCount: 86,
+
+  shortDescription: "Premium ergonomic wireless mouse with an 8,000 DPI Darkfield optical sensor, quiet clicks, MagSpeed scrolling, and multi-device connectivity.",
+
+  longDescription: "The Logitech MX Master 3S is a premium wireless performance mouse designed for productivity, precision, and extended daily use. Its 8,000 DPI Darkfield optical sensor provides accurate tracking on virtually any surface, including glass, while the sensitivity level can be adjusted according to the user's preferred workflow. Quiet Click technology significantly reduces clicking noise without affecting tactile feedback. The MagSpeed electromagnetic scroll wheel enables both precise line-by-line navigation and rapid scrolling through long documents. A secondary thumb wheel provides convenient horizontal scrolling, while the programmable buttons can be customized for different applications through Logitech Options+. The ergonomic right-handed shape includes a textured thumb rest for improved comfort and control. The mouse supports Bluetooth and Logi Bolt wireless connectivity and can be paired with up to three compatible devices. Its rechargeable battery provides extended usage, while USB-C fast charging allows the mouse to be quickly recharged when required.",
+
+  colors: [
+    {
+      id: "D-12-01",
+      label: "Pale Gray",
+      hex: "#E5E5E1",
+      inStock: true
+    }
+  ],
+
+  luniGarantie: 24,
+  esteWireless: true,
+  dpiMaxim: 8000,
+  numarButoane: 7,
+  areIluminareRGB: false,
+  tipSenzor: "optic Darkfield"
+},
+
+const customizableMice = [
+  {
+    _id: "D-13",
+    slug: "aether-m9-oled-3d-custom-wireless",
+    sku: "MOU-AM9-3DC-001",
+
+    name: "Aether M9 OLED 3D Custom Wireless Gaming Mouse",
+    category: "mouse",
+    productType: "customizable",
+    status: "active",
+
+    currentPriceRON: 749.99,
+    previousPriceRON: 829.99,
+    rating: 4.8,
+    reviewCount: 54,
+
+    shortDescription: "Customizable ergonomic wireless gaming mouse with a 26,000 DPI optical sensor, integrated OLED display, programmable buttons, and real-time 3D configuration.",
+
+    longDescription: "The Aether M9 OLED 3D Custom is a premium wireless gaming mouse designed for users who require advanced performance, ergonomic comfort, and extensive personalization options. Through the interactive 3D configurator, customers can customize the main shell, side panels, scroll wheel, decorative accents, and RGB lighting zones while previewing every change in real time. Its ergonomic right-handed shape includes a wide thumb rest and textured side grips, providing increased stability during extended gaming sessions. The high-precision optical sensor supports sensitivity levels of up to 26,000 DPI, while the programmable buttons can be assigned to shortcuts, commands, and macros. An integrated OLED display shows information such as the active DPI level, selected profile, battery status, or a custom icon. The mouse supports low-latency 2.4 GHz wireless connectivity, Bluetooth, and USB-C wired operation. Each product is assembled according to the configuration selected by the customer and requires an additional production period before delivery.",
+
+    colors: [
+      {
+        id: "D-13-01",
+        label: "Obsidian Black",
+        hex: "#111315",
+        inStock: true
+      }
+ 
+    ],
+
+    luniGarantie: 24,
+    esteWireless: true,
+    dpiMaxim: 26000,
+    numarButoane: 9,
+    areIluminareRGB: true,
+    tipSenzor: "optic",
+
+    model3DUrl: "Frontend/public/models/ouroboros_wireless_gaming_mouse.glb",
+    estimatedProductionDays: 7,
+    startingPriceRON: 749.99,
+    maxEstimatedPriceRON: 1099.99
+  },
+
+  {
+    _id: "D-14",
+    slug: "nova-s6-air-3d-custom-wireless",
+    sku: "MOU-NS6-3DC-001",
+
+    name: "Nova S6 Air 3D Custom Wireless Gaming Mouse",
+    category: "mouse",
+    productType: "customizable",
+    status: "active",
+
+    currentPriceRON: 599.99,
+    previousPriceRON: 679.99,
+    rating: 4.7,
+    reviewCount: 39,
+
+    shortDescription: "Customizable lightweight wireless gaming mouse with a 20,000 DPI optical sensor, interchangeable side buttons, RGB lighting, and real-time 3D configuration.",
+
+    longDescription: "The Nova S6 Air 3D Custom is a lightweight wireless gaming mouse developed for fast movements, accurate aiming, and personalized control. Through the real-time 3D configurator, customers can select the colors of the upper shell, side panels, scroll wheel, buttons, and illuminated logo. The modular design also allows users to choose between standard and textured side panels and configure the position of the removable side buttons. Its symmetrical shape is suitable for multiple grip styles, including palm, claw, and fingertip grip. The optical sensor provides sensitivity of up to 20,000 DPI, while the six programmable buttons can be customized for different games and applications. The mouse supports low-latency 2.4 GHz wireless connectivity, Bluetooth, and USB-C wired operation. Its rechargeable battery, internal profile memory, and lightweight reinforced shell make it suitable for both competitive gaming and everyday use. Each mouse is individually assembled according to the customer's selected configuration before being tested and prepared for delivery.",
+
+    colors: [
+      {
+        id: "D-14-01",
+        label: "Pearl White",
+        hex: "#F1F1ED",
+        inStock: true
+      },
+      {
+        id: "D-14-02",
+        label: "Graphite Black",
+        hex: "#202225",
+        inStock: true
+      },
+      {
+        id: "D-14-03",
+        label: "Pastel Lavender",
+        hex: "#B6A4CF",
+        inStock: true
+      },
+      {
+        id: "D-14-04",
+        label: "Mint Green",
+        hex: "#9ED3C2",
+        inStock: true
+      },
+      {
+        id: "D-14-05",
+        label: "Sunset Orange",
+        hex: "#E47D46",
+        inStock: false
+      }
+    ],
+
+    luniGarantie: 24,
+    esteWireless: true,
+    dpiMaxim: 20000,
+    numarButoane: 6,
+    areIluminareRGB: true,
+    tipSenzor: "optic",
+
+    model3DUrl: "Frontend/public/models/ice_claw_mouse.glb",
+    estimatedProductionDays: 5,
+    startingPriceRON: 599.99,
+    maxEstimatedPriceRON: 849.99
+  }
+];

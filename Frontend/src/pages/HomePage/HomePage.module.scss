@@ -1,0 +1,58 @@
+.page {
+  --home-accent: #00d8ad;
+  --home-bg: #061008;
+  --home-glow-blur: 46px;
+  --home-glow-center: 54%;
+  --home-glow-mid: 33%;
+  --home-glow-soft: 14%;
+  --home-green: #0bf28a;
+  --home-gutter: clamp(1.25rem, 4vw, 4.25rem);
+  --home-stripes-intensity: 0.65;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(6, 16, 8, 0.18) 0%,
+      rgba(6, 16, 8, 0.38) 46%,
+      rgba(6, 16, 8, 0.68) 72%,
+      rgba(6, 16, 8, 0.9) 100%
+    ),
+    var(--home-bg);
+  color: #ffffff;
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+}
+
+.page::before {
+  background: radial-gradient(
+    ellipse at center,
+    rgb(0 216 173 / var(--home-glow-center)) 0%,
+    rgb(0 216 144 / var(--home-glow-mid)) 25%,
+    rgb(0 216 173 / var(--home-glow-soft)) 50%,
+    transparent 73%
+  );
+  content: '';
+  filter: blur(var(--home-glow-blur));
+  height: clamp(34rem, 64vw, 58rem);
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: clamp(24rem, 44svh, 30rem);
+  transform: translate(-50%, -50%);
+  width: clamp(42rem, 76vw, 82rem);
+  z-index: 0;
+}
+
+.page::after {
+  background: url('/design-reference/backgrounds/background-stripes.svg') center top / 100% 100% no-repeat;
+  bottom: 0;
+  content: '';
+  filter: brightness(var(--home-stripes-intensity));
+  left: -14vw;
+  pointer-events: none;
+  position: absolute;
+  right: -14vw;
+  top: 0;
+  z-index: 0;
+}

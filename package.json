@@ -1,0 +1,13 @@
+{
+  "name": "dimensiongear",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n API,WEB -c cyan,green \"npm run dev --prefix Backend\" \"npm run dev --prefix Frontend\"",
+    "build": "npm run build --prefix Backend && npm run build --prefix Frontend",
+    "test": "npm test --prefix Backend",
+    "install:all": "npm install --prefix Backend && npm install --prefix Frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

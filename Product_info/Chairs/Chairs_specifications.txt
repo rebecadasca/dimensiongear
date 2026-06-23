@@ -1,0 +1,201 @@
+const gamingChairs = [
+  {
+    _id: "D-15",
+    slug: "myria-mg7437-gaming-chair-gray",
+    sku: "GAMMG7437GRI",
+
+    name: "MYRIA MG7437 Gaming Chair",
+    category: "gaming-chair",
+    productType: "classic",
+    status: "active",
+
+    currentPriceRON: 999.90,
+    previousPriceRON: null,
+    rating: 4.86,
+    reviewCount: 7,
+
+    shortDescription: "Ergonomic gaming chair with breathable fabric upholstery, adjustable 3D armrests, lumbar support, and a magnetic memory foam head cushion.",
+
+    longDescription: "The MYRIA MG7437 is an ergonomic gaming chair designed to provide comfort and support during long gaming, working, or study sessions. Its breathable fabric upholstery improves air circulation, while the solid metal frame provides increased stability and durability. The adjustable lumbar support can be positioned according to the user's preferred seating posture, helping reduce pressure on the lower back. The chair also features adjustable 3D armrests, a reclining backrest, and a magnetic memory foam head cushion that provides additional support for the neck and cervical area. Its reinforced construction supports users weighing up to 150 kilograms, making it suitable for a wide range of body types.",
+
+    colors: [
+      {
+        id: "D-15-01",
+        label: "Gray",
+        hex: "#858789",
+        inStock: true
+      }
+    ],
+
+    luniGarantie: 24,
+    greutateMaximaKg: 150,
+
+    areCotiereReglabile: true,
+    tipCotiere: "3D",
+
+    areSuportLombar: true,
+    suportLombarReglabil: true,
+
+    arePernaTetiera: true,
+    spatarReglabil: true,
+    unghiMaximInclinareGrade: 150,
+
+    materialTapiterie: "breathable fabric",
+    materialCadru: "metal"
+  },
+ {
+    _id: "D-16",
+    slug: "razer-iskur-v2-x-newgen-quartz",
+    sku: "RZ3805311000R3G1",
+
+    name: "Razer Iskur V2 X NewGen Gaming Chair",
+    category: "gaming-chair",
+    productType: "classic",
+    status: "active",
+
+    currentPriceRON: 1699.90,
+    previousPriceRON: 1781.45,
+    rating: null,
+    reviewCount: 0,
+
+    shortDescription: "Ergonomic gaming chair with integrated lumbar support, adjustable 2D armrests, CoolTouch EPU leather, and a reclining backrest.",
+
+    longDescription: "The Razer Iskur V2 X NewGen is an ergonomic gaming chair designed for extended gaming and working sessions. Its integrated lumbar support follows the natural curve of the lower back and encourages a balanced sitting position. The chair uses Razer Gen-2 EPU leather with CoolTouch technology, a breathable and durable material designed to remain comfortable during prolonged use. Its high-density cold-cured foam seat distributes pressure evenly and maintains its shape over time. The ultra-wide shoulder arches and expanded seat base provide additional freedom of movement, while the adjustable 2D armrests can be modified in height and angle. The backrest can recline up to 152 degrees, allowing the user to switch between an upright gaming position and a more relaxed posture.",
+
+    colors: [
+      {
+        id: "D-16-01",
+        label: "Quartz Pink",
+        hex: "#E8B8C7",
+        inStock: true
+      },
+      {
+        id: "D-16-02",
+        label: "Black",
+        hex: "#383838",
+        inStock: true
+    ],
+
+    luniGarantie: 36,
+    greutateMaximaKg: 136,
+
+    areCotiereReglabile: true,
+    tipCotiere: "2D",
+
+    areSuportLombar: true,
+    suportLombarReglabil: false,
+
+    arePernaTetiera: false,
+    spatarReglabil: true,
+    unghiMaximInclinareGrade: 152,
+
+    materialTapiterie: "Razer Gen-2 EPU Leather with CoolTouch Technology",
+    materialSezut: "high-density cold-cured foam"
+  }
+];
+
+const customizableGamingChairs = [
+  {
+    _id: "D-17",
+    slug: "vortex-x7-racing-3d-custom",
+    sku: "GCH-VX7-3DC-001",
+
+    name: "Vortex X7 Racing 3D Custom Gaming Chair",
+    category: "gaming-chair",
+    productType: "customizable",
+    status: "active",
+
+    currentPriceRON: 1399.99,
+    previousPriceRON: 1549.99,
+    rating: 4.8,
+    reviewCount: 46,
+
+    shortDescription: "Customizable racing-style gaming chair with adjustable armrests, ergonomic lumbar support, reclining backrest, and real-time 3D configuration.",
+
+    longDescription: "The Vortex X7 Racing 3D Custom is an ergonomic gaming chair designed for users who want to personalize both the appearance and comfort settings of their gaming setup. Through the interactive 3D configurator, customers can select the colors of the main upholstery, side panels, stitching, decorative openings, wheelbase accents, and caster details while previewing the final result in real time. Its racing-inspired design features a high backrest, reinforced side supports, a padded headrest area, and a wide seat for improved comfort during extended gaming or working sessions. The adjustable armrests can be modified in height, direction, and position, while the reclining backrest allows the user to switch between an upright gaming posture and a relaxed seating position. The chair also includes adjustable lumbar support, a durable metal frame, high-density foam padding, and a reinforced five-star base. Each chair is assembled according to the customer's selected configuration and requires an additional production period before delivery.",
+
+    colors: [
+      {
+        id: "D-17-01",
+        label: "Obsidian Black",
+        hex: "#121416",
+        inStock: true
+      },
+    ],
+
+    luniGarantie: 36,
+    greutateMaximaKg: 150,
+
+    areCotiereReglabile: true,
+    tipCotiere: "4D",
+
+    areSuportLombar: true,
+    suportLombarReglabil: true,
+
+    arePernaTetiera: true,
+    spatarReglabil: true,
+    unghiMaximInclinareGrade: 160,
+
+    materialTapiterie: "premium synthetic leather and breathable mesh fabric",
+    materialSezut: "high-density cold-cured foam",
+    materialCadru: "reinforced steel",
+    materialBaza: "aluminium alloy",
+
+    model3DUrl: "Frontend/public/models/gaming_chair.glb",
+    estimatedProductionDays: 8,
+    startingPriceRON: 1399.99,
+    maxEstimatedPriceRON: 1899.99
+  },
+
+  {
+    _id: "D-18",
+    slug: "aero-comfort-z9-3d-custom",
+    sku: "GCH-ACZ9-3DC-001",
+
+    name: "Aero Comfort Z9 3D Custom Gaming Chair",
+    category: "gaming-chair",
+    productType: "customizable",
+    status: "active",
+
+    currentPriceRON: 1699.99,
+    previousPriceRON: 1849.99,
+    rating: 4.9,
+    reviewCount: 31,
+
+    shortDescription: "Premium customizable gaming chair with breathable fabric, adaptive lumbar support, adjustable 4D armrests, and real-time 3D configuration.",
+
+    longDescription: "The Aero Comfort Z9 3D Custom is a premium ergonomic gaming chair developed for users who require advanced comfort, durable materials, and extensive visual customization. Through the real-time 3D configurator, customers can modify the colors of the upholstery, side supports, stitching, lumbar panel, head cushion, armrest details, and wheelbase accents. The chair features an adaptive lumbar support system that can be adjusted vertically and horizontally according to the user's posture. Its wide seat uses high-density cold-cured foam, while the breathable technical fabric improves air circulation during long gaming, working, or study sessions. Adjustable 4D armrests allow changes in height, depth, direction, and angle. The reclining backrest and synchronized tilt mechanism support multiple seating positions, while the magnetic memory foam head cushion provides additional cervical support. A reinforced steel frame and aluminium base provide stability and long-term durability. Each chair is individually assembled and inspected according to the configuration selected by the customer.",
+
+    colors: [
+      {
+        id: "D-18-01",
+        label: "Graphite Gray",
+        hex: "#44484D",
+        inStock: true
+      },
+    ],
+
+    luniGarantie: 36,
+    greutateMaximaKg: 160,
+
+    areCotiereReglabile: true,
+    tipCotiere: "4D",
+
+    areSuportLombar: true,
+    suportLombarReglabil: true,
+
+    arePernaTetiera: true,
+    spatarReglabil: true,
+    unghiMaximInclinareGrade: 165,
+
+    materialTapiterie: "breathable technical fabric",
+    materialSezut: "high-density cold-cured foam",
+    materialCadru: "reinforced steel",
+    materialBaza: "aluminium alloy",
+
+    model3DUrl: "Frontend/public/models/gaming_chair(1).glb",
+    estimatedProductionDays: 10,
+    startingPriceRON: 1699.99,
+    maxEstimatedPriceRON: 2299.99
+  }
+];

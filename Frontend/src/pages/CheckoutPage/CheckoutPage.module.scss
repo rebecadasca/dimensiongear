@@ -1,0 +1,250 @@
+.page {
+  background:
+    linear-gradient(var(--cyber-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cyber-grid) 1px, transparent 1px),
+    radial-gradient(circle at 14% 18%, rgba(25, 255, 118, 0.12), transparent 28rem),
+    radial-gradient(circle at 84% 48%, rgba(81, 255, 209, 0.08), transparent 28rem),
+    var(--color-background);
+  background-size:
+    40px 40px,
+    40px 40px,
+    auto,
+    auto,
+    auto;
+  display: grid;
+  gap: 1.5rem;
+  min-height: 100svh;
+  padding: clamp(7rem, 11vw, 9rem) var(--container-gutter) clamp(4rem, 7vw, 6rem);
+}
+
+.page h1,
+.page h2,
+.page p {
+  margin: 0;
+}
+
+.header,
+.checkoutShell,
+.emptyState,
+.confirmation {
+  margin: 0 auto;
+  max-width: 1320px;
+  width: 100%;
+}
+
+.header {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.header p,
+.emptyState p,
+.confirmation p,
+.summary > p,
+.formPanel label span {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.header h1,
+.emptyState h1,
+.confirmation h1 {
+  color: var(--color-text-strong);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.2vw, 5rem);
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.checkoutShell {
+  align-items: start;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+}
+
+.formStack {
+  display: grid;
+  gap: 1rem;
+}
+
+.formPanel,
+.summary,
+.emptyState,
+.confirmation {
+  background:
+    radial-gradient(circle at 80% 0, rgba(25, 255, 118, 0.13), transparent 13rem),
+    var(--cyber-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 0.35rem;
+  box-shadow: inset 0 0 0 1px rgba(202, 255, 47, 0.04);
+}
+
+.formPanel {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.formPanel h2 {
+  color: var(--color-text-strong);
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+}
+
+.fieldGrid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.fieldGrid label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.fieldGrid input {
+  background: rgba(2, 8, 6, 0.72);
+  border: 1px solid var(--color-border);
+  border-radius: 0.35rem;
+  color: var(--color-text-strong);
+  min-height: 2.75rem;
+  padding: 0.68rem 0.75rem;
+}
+
+.summary {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  position: sticky;
+  top: 6.25rem;
+}
+
+.summaryItems,
+.summary dl {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+}
+
+.summaryItem,
+.summary dl div {
+  align-items: center;
+  border-bottom: 1px solid rgba(25, 255, 118, 0.11);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding-bottom: 0.7rem;
+}
+
+.summaryItem span,
+.summary dt,
+.emptyState span,
+.confirmation span {
+  color: var(--color-text-muted);
+}
+
+.summaryItem strong,
+.summary dd {
+  color: var(--color-text-strong);
+  font-weight: 900;
+}
+
+.summary dd {
+  margin: 0;
+}
+
+.summary button,
+.emptyState a,
+.confirmation a {
+  align-items: center;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border: 1px solid transparent;
+  border-radius: 0.35rem;
+  color: #020806;
+  display: inline-flex;
+  font-weight: 900;
+  justify-content: center;
+  min-height: 2.9rem;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  transition:
+    box-shadow 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.summary button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.summary button:hover:not(:disabled),
+.emptyState a:hover,
+.confirmation a:hover {
+  box-shadow: var(--cyber-glow-strong);
+  transform: translateY(-2px);
+}
+
+.emptyState,
+.confirmation {
+  display: grid;
+  gap: 1rem;
+  max-width: 44rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+}
+
+.confirmationGrid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.confirmationGrid div {
+  background: rgba(25, 255, 118, 0.07);
+  border: 1px solid rgba(25, 255, 118, 0.16);
+  border-radius: 0.35rem;
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.8rem;
+}
+
+.confirmationGrid small {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+
+.confirmationGrid strong {
+  color: var(--color-text-strong);
+}
+
+@media (max-width: 920px) {
+  .checkoutShell {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .fieldGrid,
+  .confirmationGrid {
+    grid-template-columns: 1fr;
+  }
+}

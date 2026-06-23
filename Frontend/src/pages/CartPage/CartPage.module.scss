@@ -1,0 +1,344 @@
+.page {
+  background:
+    linear-gradient(180deg, rgba(6, 16, 8, 0.12) 0%, rgba(6, 16, 8, 0.34) 52%, rgba(6, 16, 8, 0.76) 100%),
+    #061008;
+  display: grid;
+  gap: 1.5rem;
+  isolation: isolate;
+  min-height: 100svh;
+  overflow: hidden;
+  padding: clamp(7rem, 11vw, 9rem) var(--container-gutter) clamp(4rem, 7vw, 6rem);
+  position: relative;
+}
+
+.page::before,
+.page::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+}
+
+.page::before {
+  background:
+    radial-gradient(circle, rgba(0, 216, 144, 0.56) 0%, rgba(0, 216, 173, 0.2) 38%, transparent 70%),
+    radial-gradient(circle, rgba(25, 255, 118, 0.25) 0%, transparent 62%);
+  border-radius: 999px;
+  bottom: clamp(-16rem, -18vw, -8rem);
+  filter: blur(0.35rem);
+  height: clamp(28rem, 44vw, 42rem);
+  left: clamp(-18rem, -18vw, -7rem);
+  opacity: 0.78;
+  width: clamp(28rem, 44vw, 42rem);
+  z-index: -2;
+}
+
+.page::after {
+  background: url('/design-reference/backgrounds/background-stripes.svg') center / 112% 112% no-repeat;
+  filter: brightness(0.72) saturate(1.45) hue-rotate(26deg);
+  inset: 0;
+  opacity: 0.55;
+  z-index: -1;
+}
+
+.page h1,
+.page h2,
+.page p {
+  margin: 0;
+}
+
+.header,
+.cartShell,
+.emptyState {
+  margin: 0 auto;
+  max-width: 1320px;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.header {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.header p,
+.emptyState p,
+.summary > p,
+.itemHeader p,
+.itemControls span {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.header h1,
+.emptyState h1 {
+  color: var(--color-text-strong);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.2vw, 5rem);
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.cartShell {
+  align-items: start;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+}
+
+.itemList {
+  display: grid;
+  gap: 1rem;
+}
+
+.item,
+.summary,
+.emptyState {
+  background:
+    radial-gradient(circle at 80% 0, rgba(25, 255, 118, 0.13), transparent 13rem),
+    var(--cyber-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 0.35rem;
+  box-shadow: inset 0 0 0 1px rgba(202, 255, 47, 0.04);
+}
+
+.item {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  padding: 1rem;
+}
+
+.itemPreview {
+  align-content: end;
+  background:
+    linear-gradient(var(--cyber-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cyber-grid) 1px, transparent 1px),
+    rgba(2, 8, 6, 0.7);
+  background-size: 26px 26px;
+  border: 1px solid rgba(25, 255, 118, 0.16);
+  border-radius: 0.35rem;
+  display: grid;
+  min-height: 9rem;
+  padding: 0.75rem;
+}
+
+.itemPreview span {
+  color: var(--color-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.itemBody {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.itemHeader {
+  align-items: start;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.itemHeader h2 {
+  color: var(--color-text-strong);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.1;
+  margin-top: 0.25rem;
+}
+
+.itemHeader strong {
+  color: var(--color-secondary);
+  font-family: var(--font-display);
+  white-space: nowrap;
+}
+
+.configList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.configList li,
+.standardCopy {
+  background: rgba(25, 255, 118, 0.055);
+  border: 1px solid rgba(25, 255, 118, 0.12);
+  border-radius: 0.35rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.42rem 0.55rem;
+}
+
+.itemControls {
+  align-items: end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.itemControls label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.itemControls input,
+.itemControls select {
+  background: rgba(2, 8, 6, 0.72);
+  border: 1px solid var(--color-border);
+  border-radius: 0.35rem;
+  color: var(--color-text-strong);
+  min-height: 2.7rem;
+  padding: 0.62rem 0.7rem;
+}
+
+.itemControls input {
+  width: 5.5rem;
+}
+
+.itemControls button,
+.summary a,
+.emptyState a {
+  border-radius: 0.35rem;
+  font-weight: 900;
+  min-height: 2.7rem;
+  padding: 0.65rem 0.9rem;
+  text-decoration: none;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.itemControls button {
+  align-items: center;
+  background: rgba(255, 81, 112, 0.08);
+  border: 1px solid rgba(255, 81, 112, 0.26);
+  color: #ff98ab;
+  display: inline-flex;
+  gap: 0.45rem;
+  justify-content: center;
+}
+
+.deleteButton::before {
+  background: url('/design-reference/icons/delete-icon.svg') center / contain no-repeat;
+  content: '';
+  display: block;
+  height: 1rem;
+  width: 1rem;
+}
+
+.summary {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  position: sticky;
+  top: 6.25rem;
+}
+
+.summary dl {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+}
+
+.summary dl div {
+  align-items: center;
+  border-bottom: 1px solid rgba(25, 255, 118, 0.11);
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.7rem;
+}
+
+.summary dt,
+.summary span {
+  color: var(--color-text-muted);
+}
+
+.summary dd {
+  color: var(--color-text-strong);
+  font-weight: 900;
+  margin: 0;
+}
+
+.summary a,
+.emptyState a {
+  align-items: center;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border: 1px solid transparent;
+  color: #020806;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.itemControls button:hover,
+.summary a:hover,
+.emptyState a:hover {
+  box-shadow: var(--cyber-glow-strong);
+  transform: translateY(-2px);
+}
+
+.emptyState {
+  display: grid;
+  gap: 1rem;
+  max-width: 44rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+}
+
+.emptyState span {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 920px) {
+  .cartShell {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .item {
+    grid-template-columns: 1fr;
+  }
+
+  .itemHeader {
+    flex-direction: column;
+  }
+
+  .itemHeader strong {
+    white-space: normal;
+  }
+
+  .itemControls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .itemControls input,
+  .itemControls select,
+  .itemControls button {
+    width: 100%;
+  }
+}

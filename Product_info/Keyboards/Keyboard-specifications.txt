@@ -1,0 +1,184 @@
+const keyboards = [
+  {
+    _id: "D-05",
+    slug: "myria-mg7530-wireless-mechanical",
+    sku: "TASMG7530",
+
+    name: "MYRIA MG7530 Wireless Mechanical Gaming Keyboard",
+    category: "keyboard",
+    productType: "classic",
+    status: "active",
+
+    currentPriceRON: 249.90,
+    previousPriceRON: null,
+    rating: 4.67,
+    reviewCount: 6,
+
+    shortDescription: "Compact wireless mechanical gaming keyboard with a 68-key US layout, RGB backlighting, and Bluetooth and USB connectivity.",
+
+    longDescription: "The MYRIA MG7530 is a compact mechanical gaming keyboard designed for users who want more desk space without sacrificing responsive controls. Its 68-key US layout removes the dedicated numeric keypad, while the RGB backlighting gives the setup a modern gaming appearance. The keyboard supports wireless operation through Bluetooth, as well as USB connectivity for wired gaming sessions. Its compact design is particularly suitable for players who need additional room for wide mouse movements.",
+
+    colors: [
+      {
+        id: "D-05-01",
+        label: "Black",
+        hex: "#000000",
+        inStock: true
+      }
+    ],
+
+    luniGarantie: 24,
+    esteWireless: true,
+    esteMecanica: true,
+    areTasteNumerice: false
+  },
+
+  {
+    _id: "D-06",
+    slug: "logitech-g213-prodigy-gaming",
+    sku: "TAS920008093",
+
+    name: "Logitech G213 Prodigy Gaming Keyboard",
+    category: "keyboard",
+    productType: "classic",
+    status: "active",
+
+    currentPriceRON: 237.16,
+    previousPriceRON: 424.95,
+    rating: 4.67,
+    reviewCount: 60,
+
+    shortDescription: "Full-size wired RGB gaming keyboard with tactile Mech-Dome keys, a numeric keypad, dedicated media controls, and an integrated palm rest.",
+
+    longDescription: "The Logitech G213 Prodigy is a full-size wired gaming keyboard designed for everyday gaming and extended use. Its tactile Mech-Dome keys provide a responsive and relatively quiet typing experience while using a membrane-based construction rather than mechanical switches. The keyboard features five-zone LIGHTSYNC RGB lighting, an integrated palm rest, adjustable feet, dedicated media controls, and a spill-resistant design. Its complete 104-key layout includes a dedicated numeric keypad, making it suitable for both gaming and productivity tasks.",
+
+    colors: [
+      {
+        id: "D-06-01",
+        label: "Black",
+        hex: "#000000",
+        inStock: true
+      }
+    ],
+
+    luniGarantie: 24,
+    esteWireless: false,
+    esteMecanica: false,
+    areTasteNumerice: true
+  },
+
+  {
+    _id: "D-07",
+    slug: "trust-gxt-867-acira-mechanical",
+    sku: "TAS24882",
+
+    name: "Trust GXT 867 Acira Mechanical Gaming Keyboard",
+    category: "keyboard",
+    productType: "classic",
+    status: "active",
+
+    currentPriceRON: 132.51,
+    previousPriceRON: null,
+    rating: 4.13,
+    reviewCount: 8,
+
+    shortDescription: "Compact 60% wired mechanical gaming keyboard with Outemu Red switches, full RGB lighting, and a space-saving US layout.",
+
+    longDescription: "The Trust GXT 867 Acira is a wired mechanical gaming keyboard with an ultra-compact 60% form factor. Its Outemu Red mechanical switches provide smooth and responsive key presses, while the full RGB backlighting adds visual customization to the gaming setup. The reduced layout removes the dedicated numeric keypad and creates additional space for mouse movement. This makes the keyboard suitable for compact desks, portable gaming setups, and players who prefer low-sensitivity mouse settings.",
+
+    colors: [
+      {
+        id: "D-07-01",
+        label: "Black",
+        hex: "#000000",
+        inStock: true
+      }
+    ],
+
+    luniGarantie: 24,
+    esteWireless: false,
+    esteMecanica: true,
+    areTasteNumerice: false
+  }
+];
+
+{
+  _id: "D-08",
+  slug: "vertex-k87-3d-custom-wireless",
+  sku: "KBD-VK87-CUSTOM-001",
+
+  name: "Vertex K87 3D Custom Wireless Gaming Keyboard",
+  category: "keyboard",
+  productType: "customizable",
+  status: "active",
+
+  currentPriceRON: 649.99,
+  previousPriceRON: 729.99,
+  rating: 4.8,
+  reviewCount: 42,
+
+  shortDescription: "Customizable wireless mechanical gaming keyboard with a compact TKL layout, RGB lighting, hot-swappable switches, and real-time 3D configuration.",
+
+  longDescription: "The Vertex K87 3D Custom Wireless is a premium mechanical gaming keyboard designed for users who want to personalize both the appearance and the technical configuration of their device. Through the 3D configurator, customers can choose the color of the keyboard case, keycaps, decorative frame, and rotary control knob. They can also select the preferred mechanical switch type and preview the final configuration in real time. The keyboard features a compact tenkeyless layout, hot-swappable switches, individual RGB key lighting, Bluetooth, 2.4 GHz wireless connectivity, and USB-C wired operation. Its aluminium frame provides increased durability, while the sound-dampening internal layers improve typing comfort and reduce unwanted noise. Each keyboard is assembled according to the selected configuration, which requires an additional production period before delivery.",
+
+  colors: [
+   
+    {
+      id: "D-08-02",
+      label: "Arctic White",
+      hex: "#F2F2F0",
+      inStock: true
+    },
+    
+  ],
+
+  luniGarantie: 24,
+  esteWireless: true,
+  esteMecanica: true,
+  areTasteNumerice: false,
+
+  model3DUrl: "Licenta\Frontend\public\models\custom_keyboard.glb",
+  estimatedProductionDays: 6,
+  startingPriceRON: 649.99,
+  maxEstimatedPriceRON: 899.99
+}
+
+{
+  _id: "D-09",
+  slug: "vertex-k68-pastel-3d-custom",
+  sku: "KBD-VK68-3DC-001",
+
+  name: "Vertex K68 Pastel 3D Custom Wireless Keyboard",
+  category: "keyboard",
+  productType: "customizable",
+  status: "active",
+
+  currentPriceRON: 579.99,
+  previousPriceRON: 649.99,
+  rating: 4.8,
+  reviewCount: 37,
+
+  shortDescription: "Customizable compact mechanical gaming keyboard with a pastel design, wireless connectivity, RGB lighting, hot-swappable switches, and real-time 3D configuration.",
+
+  longDescription: "The Vertex K68 Pastel 3D Custom is a compact mechanical gaming keyboard created for users who want to personalize both the appearance and functionality of their setup. Through the interactive 3D configurator, customers can choose the colors of the keyboard case, keycaps, accent keys, and decorative elements while previewing the final configuration in real time. The standard design combines a lavender case with cream, mint green, pastel pink, and red accent keycaps. Its compact 65% layout retains the arrow keys and essential navigation controls while removing the dedicated numeric keypad to provide additional desk space. The keyboard features hot-swappable mechanical switches, customizable RGB lighting, Bluetooth connectivity, a 2.4 GHz wireless connection, and USB-C wired operation. Its reinforced frame and sound-dampening internal layers provide increased durability, improved typing comfort, and reduced unwanted noise. Each keyboard is assembled according to the customer's selected configuration and requires an additional production period before delivery.",
+
+  colors: [
+    {
+      id: "D-09-01",
+      label: "Lavender Purple",
+      hex: "#B8A2C8",
+      inStock: true
+    },
+
+  ],
+
+  luniGarantie: 24,
+  esteWireless: true,
+  esteMecanica: true,
+  areTasteNumerice: false,
+
+  model3DUrl: "Licenta\Frontend\public\models\mechanical_keyboard_-_aesthetic.glb",
+  estimatedProductionDays: 6,
+  startingPriceRON: 579.99,
+  maxEstimatedPriceRON: 849.99
+}

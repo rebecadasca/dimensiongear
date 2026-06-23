@@ -1,0 +1,12 @@
+<svg width="449" height="462" viewBox="0 0 449 462" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M148.5 17H433V358L311 458H20V100.5L148.5 17Z" fill="#0BF28A" fill-opacity="0.04"/>
+<path d="M431.5 18.5V357.289L310.464 456.5H21.5V101.313L148.944 18.5H431.5Z" stroke="#0BF28A" stroke-opacity="0.57" stroke-width="3"/>
+<line x1="337.049" y1="452.84" x2="444.049" y2="365.118" stroke="white" stroke-width="3"/>
+<line x1="443.5" y1="366" x2="443.5" y2="186" stroke="white" stroke-width="3"/>
+<circle cx="443.5" cy="181.5" r="4" transform="rotate(-180 443.5 181.5)" stroke="white" stroke-width="3"/>
+<path d="M333.5 459.522C331.291 459.522 329.5 457.731 329.5 455.522C329.5 453.313 331.291 451.522 333.5 451.522C335.709 451.522 337.5 453.313 337.5 455.522C337.5 457.731 335.709 459.522 333.5 459.522Z" stroke="white" stroke-width="3"/>
+<line x1="138.815" y1="6.25929" x2="4.81451" y2="92.9818" stroke="white" stroke-width="3"/>
+<line x1="5.5" y1="92" x2="5.49999" y2="272" stroke="white" stroke-width="3"/>
+<circle cx="5.5" cy="276.5" r="4" stroke="white" stroke-width="3"/>
+<circle cx="141.5" cy="5.5" r="4" stroke="white" stroke-width="3"/>
+</svg>
