@@ -52,3 +52,6 @@ Thumbs.db
 
 # Blender autosave backups
 *.blend1
+
+# Oversized legacy model kept locally; the application uses the optimized Aether model.
+Frontend/public/models/ouroboros_wireless_gaming_mouse.glb
