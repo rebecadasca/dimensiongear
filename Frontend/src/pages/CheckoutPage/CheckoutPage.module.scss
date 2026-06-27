@@ -239,12 +239,31 @@
 
 @media (max-width: 640px) {
   .page {
+    padding-bottom: 3.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
+    padding-top: 6.5rem;
+  }
+
+  .header h1,
+  .emptyState h1,
+  .confirmation h1 {
+    font-size: clamp(2rem, 10vw, 2.6rem);
   }
 
   .fieldGrid,
   .confirmationGrid {
     grid-template-columns: 1fr;
+  }
+
+  .formPanel h2 {
+    font-size: 1.2rem;
+  }
+
+  .summary button,
+  .emptyState a,
+  .confirmation a {
+    font-size: 0.76rem;
+    min-height: 2.55rem;
   }
 }

@@ -315,8 +315,15 @@
 
 @media (max-width: 640px) {
   .page {
+    padding-bottom: 3.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
+    padding-top: 6.5rem;
+  }
+
+  .header h1,
+  .emptyState h1 {
+    font-size: clamp(2rem, 10vw, 2.6rem);
   }
 
   .item {
@@ -340,5 +347,16 @@
   .itemControls select,
   .itemControls button {
     width: 100%;
+  }
+
+  .itemHeader h2 {
+    font-size: 1.2rem;
+  }
+
+  .itemControls button,
+  .summary a,
+  .emptyState a {
+    font-size: 0.76rem;
+    min-height: 2.5rem;
   }
 }

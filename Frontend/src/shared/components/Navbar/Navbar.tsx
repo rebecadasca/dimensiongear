@@ -144,11 +144,26 @@ export function Navbar() {
           >
             Oferte
           </Link>
-          <Link onClick={closeMobileMenu} to="/cart">
-            Coș ({totalQuantity})
+          <Link className={styles.mobileUtilityLink} onClick={closeMobileMenu} to="/cart">
+            <span
+              aria-hidden="true"
+              className={`${styles.mobileUtilityIcon} ${styles.mobileCartIcon}`}
+            />
+            <span>Coș</span>
+            {totalQuantity > 0 ? (
+              <strong className={styles.mobileCartBadge}>{totalQuantity}</strong>
+            ) : null}
           </Link>
-          <Link onClick={closeMobileMenu} to={currentUser ? '/account' : '/auth?next=/account'}>
-            {currentUser ? 'Contul meu' : 'Autentificare'}
+          <Link
+            className={styles.mobileUtilityLink}
+            onClick={closeMobileMenu}
+            to={currentUser ? '/account' : '/auth?next=/account'}
+          >
+            <span
+              aria-hidden="true"
+              className={`${styles.mobileUtilityIcon} ${styles.mobileAccountIcon}`}
+            />
+            <span>{currentUser ? 'Contul meu' : 'Autentificare'}</span>
           </Link>
         </nav>
       </aside>

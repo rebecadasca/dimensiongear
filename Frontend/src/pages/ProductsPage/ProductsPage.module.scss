@@ -795,19 +795,19 @@
   .categoryLandingContent,
   .categoryProductsContent {
     padding:
-      9rem
+      7rem
       clamp(1rem, 5vw, 1.4rem)
       4.5rem;
   }
 
   .categoryLandingHeader h1,
   .productsHeader h1 {
-    font-size: clamp(2.75rem, 12vw, 4rem);
+    font-size: clamp(2.1rem, 9vw, 3rem);
   }
 
   .categoryLandingHeader p,
   .productsHeader p {
-    font-size: 1rem;
+    font-size: clamp(0.82rem, 3.5vw, 0.95rem);
   }
 
   .productsGrid {
@@ -839,6 +839,23 @@
   .categoryLandingGrid {
     grid-template-columns: 1fr;
     max-width: 18rem;
+  }
+
+  .categoryLandingCardContent h3 {
+    font-size: 1.15rem;
+  }
+
+  .categoryLandingCardContent p {
+    font-size: 0.76rem;
+  }
+
+  .categoryLandingCardContent a,
+  .productFooter a,
+  .filterToggle,
+  .emptyState button {
+    font-size: 0.68rem;
+    min-height: 2.4rem;
+    padding: 0.55rem 0.85rem;
   }
 }
 

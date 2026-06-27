@@ -107,6 +107,29 @@
 
 @media (max-width: 520px) {
   .inner {
+    gap: 2rem;
     grid-template-columns: 1fr;
+    padding: 3rem 1rem;
+  }
+
+  .brand {
+    font-size: 1.15rem;
+  }
+
+  .about p {
+    font-size: 0.75rem;
+  }
+
+  .group h2 {
+    font-size: 0.78rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .group ul {
+    gap: 0.65rem;
+  }
+
+  .group a {
+    font-size: 0.72rem;
   }
 }

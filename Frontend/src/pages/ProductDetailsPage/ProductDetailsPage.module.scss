@@ -1116,7 +1116,7 @@
 
 @media (max-width: 760px) {
   .contentShell {
-    padding-top: 8.75rem;
+    padding-top: 7rem;
   }
 
   .productLayout {
@@ -1129,7 +1129,7 @@
   }
 
   .details h1 {
-    font-size: clamp(2.3rem, 10vw, 3.5rem);
+    font-size: clamp(1.9rem, 8.5vw, 2.8rem);
   }
 
   .priceAndRating {
@@ -1184,7 +1184,7 @@
   }
 
   .mainFrame {
-    padding: 2rem;
+    padding: 1.25rem;
   }
 
   .galleryControls {
@@ -1193,6 +1193,25 @@
 
   .recommendationGrid {
     grid-template-columns: 1fr;
+  }
+
+  .price {
+    font-size: 1.25rem;
+  }
+
+  .actions button,
+  .actions a,
+  .reviewsHeader button,
+  .reviewForm > button,
+  .replyActions button {
+    font-size: 0.7rem;
+    min-height: 2.45rem;
+    padding: 0.55rem 0.85rem;
+  }
+
+  .reviewsHeader h2,
+  .recommendations h2 {
+    font-size: clamp(1.55rem, 7vw, 2rem);
   }
 }
 
