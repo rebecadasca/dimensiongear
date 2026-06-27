@@ -8,6 +8,7 @@ import { getDatabase } from './database.js'
 export const SESSION_COOKIE = 'dimensiongear_session'
 
 type SessionPayload = { sub: string; role: 'CLIENT' | 'ADMIN' }
+const productionCookie = config.NODE_ENV === 'production'
 
 declare global {
   namespace Express {
@@ -25,16 +26,16 @@ export function issueSession(response: Response, userId: ObjectId, role: 'CLIENT
   response.cookie(SESSION_COOKIE, token, {
     httpOnly: true,
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    sameSite: 'lax',
-    secure: config.NODE_ENV === 'production',
+    sameSite: productionCookie ? 'none' : 'lax',
+    secure: productionCookie,
   })
 }
 
 export function clearSession(response: Response) {
   response.clearCookie(SESSION_COOKIE, {
     httpOnly: true,
-    sameSite: 'lax',
-    secure: config.NODE_ENV === 'production',
+    sameSite: productionCookie ? 'none' : 'lax',
+    secure: productionCookie,
   })
 }
 
