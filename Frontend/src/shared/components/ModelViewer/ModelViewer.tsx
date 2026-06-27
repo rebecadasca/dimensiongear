@@ -1,7 +1,7 @@
 import { Suspense, useLayoutEffect, useMemo } from 'react'
 import { type Object3D, type Vector3Tuple } from 'three'
 import { clone as cloneScene } from 'three/addons/utils/SkeletonUtils.js'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useThree } from '@react-three/fiber'
 import {
   Bounds,
   Center,
@@ -45,11 +45,13 @@ function Model({
   modelScale,
 }: ModelProps) {
   const { scene } = useGLTF(modelPath, dracoDecoderPath)
+  const invalidate = useThree((state) => state.invalidate)
   const model = useMemo(() => cloneScene(scene), [scene])
 
   useLayoutEffect(() => {
     configureModel?.(model)
-  }, [configureModel, model])
+    invalidate()
+  }, [configureModel, invalidate, model])
 
   return (
     <primitive

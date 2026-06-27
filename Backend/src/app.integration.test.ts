@@ -134,6 +134,46 @@ describe('customer API smoke test', () => {
     expect(me.body.user.email).toBe('api@example.com')
   })
 
+  it('creates, updates and replies to product reviews while recalculating catalog stats', async () => {
+    const emptyReviews = await agent.get('/api/v1/products/api-test-mouse/reviews?limit=2').expect(200)
+    expect(emptyReviews.body.reviews).toHaveLength(0)
+
+    const created = await agent.post('/api/v1/products/api-test-mouse/reviews').send({
+      rating: 5,
+      text: 'Mouse precis si confortabil pentru sesiuni lungi.',
+    }).expect(201)
+    expect(created.body.review.rating).toBe(5)
+
+    const productAfterCreate = await agent.get('/api/v1/products/api-test-mouse').expect(200)
+    expect(productAfterCreate.body.product.rating).toBe(5)
+    expect(productAfterCreate.body.product.reviewCount).toBe(1)
+
+    const updated = await agent.post('/api/v1/products/api-test-mouse/reviews').send({
+      rating: 3,
+      text: 'Bun, dar clickurile puteau fi mai silentioase.',
+    }).expect(201)
+    expect(updated.body.review.id).toBe(created.body.review.id)
+
+    const productAfterUpdate = await agent.get('/api/v1/products/api-test-mouse').expect(200)
+    expect(productAfterUpdate.body.product.rating).toBe(3)
+    expect(productAfterUpdate.body.product.reviewCount).toBe(1)
+
+    const replied = await agent.post(`/api/v1/products/api-test-mouse/reviews/${created.body.review.id}/replies`).send({
+      text: 'Multumim pentru feedback!',
+    }).expect(201)
+    expect(replied.body.review.replies).toHaveLength(1)
+
+    await agent.post('/api/v1/products/api-test-mouse/reviews').send({
+      rating: 6,
+      text: 'Rating invalid.',
+    }).expect(400)
+
+    await agent.post('/api/v1/products/api-test-mouse/reviews').send({
+      rating: 4,
+      text: Array.from({ length: 201 }, (_, index) => `word${index}`).join(' '),
+    }).expect(400)
+  })
+
   it('adds a customizable product with defaults and stores preview sessions outside history', async () => {
     const preview = await agent.post('/api/v1/configuration-sessions/preview').send({
       productSlug: customProductSlug,

@@ -12,6 +12,7 @@ import { config } from './config.js'
 import { getDatabase, getMongoClient } from './database.js'
 import { AppError, errorHandler, notFoundHandler } from './errors.js'
 import { decimal128, moneyString, sumMoney, toStripeMinorUnits } from './money.js'
+import { addReviewReply, listProductReviews, upsertProductReview } from './reviews.js'
 import {
   addConfigurationCartItemSchema,
   addStandardCartItemSchema,
@@ -22,9 +23,11 @@ import {
   googleLoginSchema,
   loginSchema,
   objectIdSchema,
+  productReviewSchema,
   profileUpdateSchema,
   quoteSchema,
   registerSchema,
+  reviewReplySchema,
   saveConfigurationSchema,
 } from './validators.js'
 
@@ -402,6 +405,24 @@ export function createApp() {
   app.get('/api/v1/products/:slug', asyncHandler(async (request, response) => {
     const { category, product } = await findProductBySlug(routeParam(request.params.slug))
     response.json({ product: mapProduct(product, category?.denumire ?? '') })
+  }))
+  app.get('/api/v1/products/:slug/reviews', asyncHandler(async (request, response) => {
+    const limit = request.query.limit === undefined ? undefined : Number(request.query.limit)
+    response.json(await listProductReviews(
+      routeParam(request.params.slug),
+      Number.isFinite(limit) ? limit : undefined,
+    ))
+  }))
+  app.post('/api/v1/products/:slug/reviews', requireAuth, asyncHandler(async (request, response) => {
+    const body = productReviewSchema.parse(request.body)
+    const review = await upsertProductReview(routeParam(request.params.slug), request.authUser!.id, body)
+    response.status(201).json({ review })
+  }))
+  app.post('/api/v1/products/:slug/reviews/:reviewId/replies', requireAuth, asyncHandler(async (request, response) => {
+    const body = reviewReplySchema.parse(request.body)
+    const reviewId = new ObjectId(objectIdSchema.parse(request.params.reviewId))
+    const review = await addReviewReply(routeParam(request.params.slug), reviewId, request.authUser!.id, body)
+    response.status(201).json({ review })
   }))
   app.get('/api/v1/products/:slug/customization', asyncHandler(async (request, response) => {
     response.json(await getCustomization(routeParam(request.params.slug)))

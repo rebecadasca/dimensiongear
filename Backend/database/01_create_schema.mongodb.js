@@ -4,7 +4,7 @@ use("dimensiongear_db");
  * Schema MongoDB pentru DimensionGear.
  *
  * Decizii de modelare:
- * - liniile de cos/comanda/aprovizionare sunt documente incorporate;
+ * - liniile de cos/comanda sunt documente incorporate;
  * - stocul 1-la-1 este incorporat in produs sau materie prima;
  * - configuratia 3D finala este separata de sesiunea de editare;
  * - comenzile pastreaza snapshot-uri, astfel incat istoricul sa nu fie
@@ -15,8 +15,7 @@ use("dimensiongear_db");
  * existente. Pentru o baza deja populata este necesara o migrare separata.
  *
  * Regulile dintre colectii trebuie aplicate in serviciul backend, in
- * tranzactii: existenta referintelor, egalitatea totalurilor, data de sfarsit
- * dupa data de inceput, cantitatea receptionata <= cantitatea comandata si
+ * tranzactii: existenta referintelor, egalitatea totalurilor si
  * rezervarea/scaderea atomica a stocurilor.
  */
 
@@ -109,6 +108,25 @@ function ensureIndex(collectionName, key, options = {}) {
   }
 
   collection.createIndex(key, options);
+}
+
+const obsoleteCollections = [
+  "curieri",
+  "livrari",
+  "furnizoriProduse",
+  "oferteProduseFurnizori",
+  "oferteMateriiPrimeFurnizori",
+  "ordineProductie",
+  "comenziAprovizionareProduse",
+  "comenziAprovizionareMateriiPrime",
+  "furnizoriMateriiPrime"
+];
+
+for (const collectionName of obsoleteCollections) {
+  if (db.getCollectionNames().includes(collectionName)) {
+    db.getCollection(collectionName).drop();
+    print(`Colectia ${collectionName} a fost eliminata.`);
+  }
 }
 
 const quantityTypes = ["double", "int", "long", "decimal"];
@@ -208,6 +226,17 @@ const culoareProdusSchema = embeddedSchema(
     codHex: hexColor,
     inStoc: { bsonType: "bool" },
     pretOverride: nonNegativeMoney
+  }
+);
+
+const raspunsRecenzieSchema = embeddedSchema(
+  ["raspunsId", "userId", "numeUtilizatorSnapshot", "text", "creatLa"],
+  {
+    raspunsId: { bsonType: "objectId" },
+    userId: { bsonType: "objectId" },
+    numeUtilizatorSnapshot: requiredString,
+    text: requiredString,
+    creatLa: { bsonType: "date" }
   }
 );
 
@@ -402,6 +431,39 @@ createOrUpdateCollection(
           }
         }
       ]
+    }
+  )
+);
+
+createOrUpdateCollection(
+  "recenziiProduse",
+  rootSchema(
+    [
+      "produsId",
+      "userId",
+      "numeUtilizatorSnapshot",
+      "rating",
+      "text",
+      "raspunsuri",
+      "creatLa",
+      "actualizatLa"
+    ],
+    {
+      produsId: { bsonType: "objectId" },
+      userId: { bsonType: "objectId" },
+      numeUtilizatorSnapshot: requiredString,
+      rating: {
+        bsonType: "int",
+        minimum: 1,
+        maximum: 5
+      },
+      text: requiredString,
+      raspunsuri: {
+        bsonType: "array",
+        items: raspunsRecenzieSchema
+      },
+      creatLa: { bsonType: "date" },
+      actualizatLa: { bsonType: "date" }
     }
   )
 );
@@ -867,136 +929,6 @@ createOrUpdateCollection(
 );
 
 createOrUpdateCollection(
-  "curieri",
-  rootSchema(
-    ["nume", "status"],
-    {
-      nume: requiredString,
-      telefon: { bsonType: "string" },
-      email: emailSchema,
-      status: { enum: ["ACTIV", "INACTIV"] }
-    }
-  )
-);
-
-createOrUpdateCollection(
-  "livrari",
-  rootSchema(
-    ["comandaId", "statusLivrare", "costLivrare", "creatLa"],
-    {
-      comandaId: { bsonType: "objectId" },
-      curierId: { bsonType: "objectId" },
-      numeCurierSnapshot: { bsonType: "string" },
-      awb: { bsonType: "string" },
-      statusLivrare: {
-        enum: [
-          "PREGATITA",
-          "PREDATA_CURIERULUI",
-          "IN_TRANZIT",
-          "LIVRATA",
-          "RETURNATA",
-          "ANULATA"
-        ]
-      },
-      costLivrare: nonNegativeMoney,
-      creatLa: { bsonType: "date" },
-      dataExpediere: { bsonType: "date" },
-      dataEstimataLivrare: { bsonType: "date" },
-      dataLivrare: { bsonType: "date" },
-      actualizatLa: { bsonType: "date" }
-    },
-    {
-      oneOf: [
-        {
-          properties: {
-            statusLivrare: { enum: ["PREGATITA", "ANULATA"] }
-          }
-        },
-        {
-          required: ["curierId", "awb"],
-          properties: {
-            statusLivrare: {
-              enum: [
-                "PREDATA_CURIERULUI",
-                "IN_TRANZIT",
-                "LIVRATA",
-                "RETURNATA"
-              ]
-            }
-          }
-        }
-      ]
-    }
-  )
-);
-
-const furnizorProperties = {
-  denumire: requiredString,
-  cui: { bsonType: "string" },
-  nrRegistruComertului: { bsonType: "string" },
-  email: emailSchema,
-  telefon: { bsonType: "string" },
-  adresa: { bsonType: "string" },
-  persoanaContact: { bsonType: "string" },
-  statusFurnizor: {
-    enum: ["ACTIV", "INACTIV", "SUSPENDAT"]
-  },
-  creatLa: { bsonType: "date" },
-  actualizatLa: { bsonType: "date" }
-};
-
-createOrUpdateCollection(
-  "furnizoriProduse",
-  rootSchema(
-    ["denumire", "email", "statusFurnizor", "creatLa"],
-    furnizorProperties
-  )
-);
-
-createOrUpdateCollection(
-  "oferteProduseFurnizori",
-  rootSchema(
-    [
-      "furnizorProdusId",
-      "produsSimpluId",
-      "pretAchizitie",
-      "cantitateMinima",
-      "termenLivrareZile",
-      "statusOferta",
-      "actualizatLa"
-    ],
-    {
-      furnizorProdusId: { bsonType: "objectId" },
-      produsSimpluId: { bsonType: "objectId" },
-      codProdusFurnizor: { bsonType: "string" },
-      pretAchizitie: nonNegativeMoney,
-      cantitateMinima: {
-        bsonType: "int",
-        minimum: 1
-      },
-      termenLivrareZile: {
-        bsonType: "int",
-        minimum: 0
-      },
-      dataInceput: { bsonType: "date" },
-      dataSfarsit: { bsonType: "date" },
-      statusOferta: {
-        enum: ["ACTIVA", "INACTIVA", "EXPIRATA"]
-      },
-      actualizatLa: { bsonType: "date" }
-    }
-  )
-);
-
-createOrUpdateCollection(
-  "furnizoriMateriiPrime",
-  rootSchema(
-    ["denumire", "email", "statusFurnizor", "creatLa"],
-    furnizorProperties
-  )
-);
-
-createOrUpdateCollection(
   "materiiPrime",
   rootSchema(
     [
@@ -1022,40 +954,6 @@ createOrUpdateCollection(
       ),
       status: { enum: ["ACTIVA", "INACTIVA"] },
       creatLa: { bsonType: "date" },
-      actualizatLa: { bsonType: "date" }
-    }
-  )
-);
-
-createOrUpdateCollection(
-  "oferteMateriiPrimeFurnizori",
-  rootSchema(
-    [
-      "furnizorMateriePrimaId",
-      "materiePrimaId",
-      "pretUnitar",
-      "cantitateMinima",
-      "unitateMasura",
-      "termenLivrareZile",
-      "statusOferta",
-      "actualizatLa"
-    ],
-    {
-      furnizorMateriePrimaId: { bsonType: "objectId" },
-      materiePrimaId: { bsonType: "objectId" },
-      codMateriePrimaFurnizor: { bsonType: "string" },
-      pretUnitar: nonNegativeMoney,
-      cantitateMinima: positiveQuantity,
-      unitateMasura: { enum: unitatiMasura },
-      termenLivrareZile: {
-        bsonType: "int",
-        minimum: 0
-      },
-      dataInceput: { bsonType: "date" },
-      dataSfarsit: { bsonType: "date" },
-      statusOferta: {
-        enum: ["ACTIVA", "INACTIVA", "EXPIRATA"]
-      },
       actualizatLa: { bsonType: "date" }
     }
   )
@@ -1129,175 +1027,6 @@ createOrUpdateCollection(
   )
 );
 
-createOrUpdateCollection(
-  "ordineProductie",
-  rootSchema(
-    [
-      "comandaId",
-      "linieComandaId",
-      "produsPersonalizabilId",
-      "configuratie3DId",
-      "retetaProductieId",
-      "cantitate",
-      "statusOrdinProductie",
-      "rezervariMateriiPrime",
-      "creatLa"
-    ],
-    {
-      comandaId: { bsonType: "objectId" },
-      linieComandaId: { bsonType: "objectId" },
-      produsPersonalizabilId: { bsonType: "objectId" },
-      configuratie3DId: { bsonType: "objectId" },
-      retetaProductieId: { bsonType: "objectId" },
-      cantitate: {
-        bsonType: "int",
-        minimum: 1
-      },
-      statusOrdinProductie: {
-        enum: [
-          "PLANIFICAT",
-          "ASTEAPTA_MATERIALE",
-          "IN_PRODUCTIE",
-          "FINALIZAT",
-          "ANULAT"
-        ]
-      },
-      rezervariMateriiPrime: {
-        bsonType: "array",
-        items: embeddedSchema(
-          [
-            "rezervareId",
-            "materiePrimaId",
-            "cantitateRezervata",
-            "unitateMasura",
-            "statusRezervare",
-            "dataRezervare"
-          ],
-          {
-            rezervareId: { bsonType: "objectId" },
-            materiePrimaId: { bsonType: "objectId" },
-            cantitateRezervata: positiveQuantity,
-            unitateMasura: { enum: unitatiMasura },
-            statusRezervare: {
-              enum: ["ACTIVA", "CONSUMATA", "ANULATA"]
-            },
-            dataRezervare: { bsonType: "date" }
-          }
-        )
-      },
-      costProductie: nonNegativeMoney,
-      creatLa: { bsonType: "date" },
-      planificatLa: { bsonType: "date" },
-      inceputLa: { bsonType: "date" },
-      finalizatLa: { bsonType: "date" }
-    }
-  )
-);
-
-createOrUpdateCollection(
-  "comenziAprovizionareProduse",
-  rootSchema(
-    [
-      "furnizorProdusId",
-      "statusComandaAprovizionare",
-      "linii",
-      "valoareTotala",
-      "creatLa"
-    ],
-    {
-      furnizorProdusId: { bsonType: "objectId" },
-      statusComandaAprovizionare: {
-        enum: ["CREATA", "TRIMISA", "CONFIRMATA", "RECEPTIONATA", "ANULATA"]
-      },
-      linii: {
-        bsonType: "array",
-        minItems: 1,
-        items: embeddedSchema(
-          [
-            "linieId",
-            "produsSimpluId",
-            "ofertaProdusFurnizorId",
-            "cantitateComandata",
-            "cantitateReceptionata",
-            "pretUnitar",
-            "subtotal"
-          ],
-          {
-            linieId: { bsonType: "objectId" },
-            produsSimpluId: { bsonType: "objectId" },
-            ofertaProdusFurnizorId: { bsonType: "objectId" },
-            cantitateComandata: {
-              bsonType: "int",
-              minimum: 1
-            },
-            cantitateReceptionata: {
-              bsonType: "int",
-              minimum: 0
-            },
-            pretUnitar: nonNegativeMoney,
-            subtotal: nonNegativeMoney
-          }
-        )
-      },
-      valoareTotala: nonNegativeMoney,
-      creatLa: { bsonType: "date" },
-      trimisaLa: { bsonType: "date" },
-      dataEstimataLivrare: { bsonType: "date" },
-      receptionataLa: { bsonType: "date" }
-    }
-  )
-);
-
-createOrUpdateCollection(
-  "comenziAprovizionareMateriiPrime",
-  rootSchema(
-    [
-      "furnizorMateriePrimaId",
-      "statusComandaAprovizionare",
-      "linii",
-      "valoareTotala",
-      "creatLa"
-    ],
-    {
-      furnizorMateriePrimaId: { bsonType: "objectId" },
-      statusComandaAprovizionare: {
-        enum: ["CREATA", "TRIMISA", "CONFIRMATA", "RECEPTIONATA", "ANULATA"]
-      },
-      linii: {
-        bsonType: "array",
-        minItems: 1,
-        items: embeddedSchema(
-          [
-            "linieId",
-            "materiePrimaId",
-            "ofertaMateriePrimaFurnizorId",
-            "cantitateComandata",
-            "cantitateReceptionata",
-            "unitateMasura",
-            "pretUnitar",
-            "subtotal"
-          ],
-          {
-            linieId: { bsonType: "objectId" },
-            materiePrimaId: { bsonType: "objectId" },
-            ofertaMateriePrimaFurnizorId: { bsonType: "objectId" },
-            cantitateComandata: positiveQuantity,
-            cantitateReceptionata: nonNegativeQuantity,
-            unitateMasura: { enum: unitatiMasura },
-            pretUnitar: nonNegativeMoney,
-            subtotal: nonNegativeMoney
-          }
-        )
-      },
-      valoareTotala: nonNegativeMoney,
-      creatLa: { bsonType: "date" },
-      trimisaLa: { bsonType: "date" },
-      dataEstimataLivrare: { bsonType: "date" },
-      receptionataLa: { bsonType: "date" }
-    }
-  )
-);
-
 ensureIndex(
   "utilizatori",
   { email: 1 },
@@ -1360,6 +1089,19 @@ ensureIndex(
   "produse",
   { categorieId: 1, status: 1 },
   { name: "ix_produse_categorie_status" }
+);
+ensureIndex(
+  "recenziiProduse",
+  { produsId: 1, userId: 1 },
+  {
+    name: "uq_recenzii_produs_user",
+    unique: true
+  }
+);
+ensureIndex(
+  "recenziiProduse",
+  { produsId: 1, creatLa: -1 },
+  { name: "ix_recenzii_produs_data" }
 );
 ensureIndex(
   "componentePersonalizabile",
@@ -1458,63 +1200,6 @@ ensureIndex(
   { name: "uq_evenimente_stripe_event", unique: true }
 );
 ensureIndex(
-  "livrari",
-  { comandaId: 1 },
-  {
-    name: "uq_livrari_comanda",
-    unique: true
-  }
-);
-ensureIndex(
-  "livrari",
-  { awb: 1 },
-  {
-    name: "uq_livrari_awb",
-    unique: true,
-    partialFilterExpression: {
-      awb: { $type: "string" }
-    }
-  }
-);
-ensureIndex(
-  "curieri",
-  { nume: 1 },
-  {
-    name: "uq_curieri_nume",
-    unique: true,
-    collation: { locale: "ro", strength: 2 }
-  }
-);
-
-for (const collectionName of ["furnizoriProduse", "furnizoriMateriiPrime"]) {
-  ensureIndex(
-    collectionName,
-    { email: 1 },
-    {
-      name: `uq_${collectionName}_email`,
-      unique: true,
-      collation: { locale: "en", strength: 2 }
-    }
-  );
-  ensureIndex(
-    collectionName,
-    { cui: 1 },
-    {
-      name: `uq_${collectionName}_cui`,
-      unique: true,
-      partialFilterExpression: {
-        cui: { $type: "string" }
-      }
-    }
-  );
-}
-
-ensureIndex(
-  "oferteProduseFurnizori",
-  { furnizorProdusId: 1, produsSimpluId: 1, statusOferta: 1 },
-  { name: "ix_oferte_produse_furnizor_produs_status" }
-);
-ensureIndex(
   "materiiPrime",
   { denumire: 1 },
   {
@@ -1522,11 +1207,6 @@ ensureIndex(
     unique: true,
     collation: { locale: "ro", strength: 2 }
   }
-);
-ensureIndex(
-  "oferteMateriiPrimeFurnizori",
-  { furnizorMateriePrimaId: 1, materiePrimaId: 1, statusOferta: 1 },
-  { name: "ix_oferte_materii_furnizor_materie_status" }
 );
 ensureIndex(
   "reteteProductie",
@@ -1563,30 +1243,6 @@ ensureIndex(
       configuratie3DId: { $type: "objectId" }
     }
   }
-);
-ensureIndex(
-  "ordineProductie",
-  { comandaId: 1, linieComandaId: 1 },
-  { name: "ix_ordine_productie_comanda_linie" }
-);
-ensureIndex(
-  "ordineProductie",
-  { statusOrdinProductie: 1, planificatLa: 1 },
-  { name: "ix_ordine_productie_status_planificare" }
-);
-ensureIndex(
-  "comenziAprovizionareProduse",
-  { furnizorProdusId: 1, statusComandaAprovizionare: 1, creatLa: -1 },
-  { name: "ix_aprovizionare_produse_furnizor_status" }
-);
-ensureIndex(
-  "comenziAprovizionareMateriiPrime",
-  {
-    furnizorMateriePrimaId: 1,
-    statusComandaAprovizionare: 1,
-    creatLa: -1
-  },
-  { name: "ix_aprovizionare_materii_furnizor_status" }
 );
 
 print("Schema si indexurile DimensionGear au fost verificate.");

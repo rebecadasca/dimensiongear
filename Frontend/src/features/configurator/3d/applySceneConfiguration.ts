@@ -22,6 +22,7 @@ import type {
 import {
   productModelBindings,
   type ComponentVisualBinding,
+  type FixedColorMask,
   type MeshSelector,
   type NormalizedBox,
   type NormalizedEllipse,
@@ -124,6 +125,14 @@ function meshMaterialNames(mesh: Mesh) {
   return materialList(mesh.material).map((material) => material.name)
 }
 
+function selectorText(value: string) {
+  return value.toLocaleLowerCase().replace(/[\s_-]+/g, '')
+}
+
+function includesSelectorText(value: string, part: string) {
+  return value.includes(part) || selectorText(value).includes(selectorText(part))
+}
+
 function matchesSelector(mesh: Mesh, selector: MeshSelector) {
   const materialNames = meshMaterialNames(mesh)
   const ancestors: string[] = []
@@ -132,10 +141,11 @@ function matchesSelector(mesh: Mesh, selector: MeshSelector) {
     ancestors.push(parent.name)
     parent = parent.parent
   }
+  const hierarchyNames = [mesh.name, ...ancestors]
 
-  const matchesName = !selector.nameIncludes?.length || selector.nameIncludes.some((part) => mesh.name.includes(part))
+  const matchesName = !selector.nameIncludes?.length || selector.nameIncludes.some((part) => includesSelectorText(mesh.name, part))
   const matchesMaterial = !selector.materialNames?.length || selector.materialNames.some((name) => materialNames.includes(name))
-  const matchesAncestor = !selector.ancestorIncludes?.length || selector.ancestorIncludes.some((part) => ancestors.some((name) => name.includes(part)))
+  const matchesAncestor = !selector.ancestorIncludes?.length || selector.ancestorIncludes.some((part) => hierarchyNames.some((name) => includesSelectorText(name, part)))
   return matchesName && matchesMaterial && matchesAncestor
 }
 
@@ -166,6 +176,61 @@ function surfaceTextures(kind: 'leather' | 'mesh' | 'textile') {
     normalMap: loadSurfaceTexture(`${kind}:normal`, `${root}/normal.png`, NoColorSpace),
     roughnessMap: loadSurfaceTexture(`${kind}:roughness`, `${root}/roughness.png`, NoColorSpace),
   }
+}
+
+function uvMaskRegions(mask: Pick<FixedColorMask, 'ellipses' | 'regions'>) {
+  const rectangles = (mask.regions ?? []).map((region) => `(
+    step(${region.u[0].toFixed(4)}, vMapUv.x) *
+    step(vMapUv.x, ${region.u[1].toFixed(4)}) *
+    step(${region.v[0].toFixed(4)}, vMapUv.y) *
+    step(vMapUv.y, ${region.v[1].toFixed(4)})
+  )`)
+  const ellipses = (mask.ellipses ?? []).map((ellipse) => {
+    const outer = `1.0 - step(1.0, dot(
+      (vMapUv - vec2(${ellipse.center[0].toFixed(4)}, ${ellipse.center[1].toFixed(4)})) /
+        vec2(${ellipse.radius[0].toFixed(4)}, ${ellipse.radius[1].toFixed(4)}),
+      (vMapUv - vec2(${ellipse.center[0].toFixed(4)}, ${ellipse.center[1].toFixed(4)})) /
+        vec2(${ellipse.radius[0].toFixed(4)}, ${ellipse.radius[1].toFixed(4)})
+    ))`
+    if (!ellipse.innerRadius) return `(${outer})`
+    const inner = `step(1.0, dot(
+      (vMapUv - vec2(${ellipse.center[0].toFixed(4)}, ${ellipse.center[1].toFixed(4)})) /
+        vec2(${ellipse.innerRadius[0].toFixed(4)}, ${ellipse.innerRadius[1].toFixed(4)}),
+      (vMapUv - vec2(${ellipse.center[0].toFixed(4)}, ${ellipse.center[1].toFixed(4)})) /
+        vec2(${ellipse.innerRadius[0].toFixed(4)}, ${ellipse.innerRadius[1].toFixed(4)})
+    ))`
+    return `((${outer}) * (${inner}))`
+  })
+
+  return [...rectangles, ...ellipses].join(' + ') || '0.0'
+}
+
+function fixedColorMaskShader(masks: FixedColorMask[]) {
+  return masks.map((mask, index) => {
+    const bounds = uvMaskRegions(mask)
+    const brightness = mask.brightness
+      ? `
+        float dimensionGearFixedBrightness${index} = max(
+          sampledDiffuseColor.r,
+          max(sampledDiffuseColor.g, sampledDiffuseColor.b)
+        );
+        dimensionGearFixedMask${index} *= ${mask.invertBrightness ? '1.0 - ' : ''}smoothstep(
+          ${mask.brightness[0].toFixed(4)},
+          ${mask.brightness[1].toFixed(4)},
+          dimensionGearFixedBrightness${index}
+        );
+      `
+      : ''
+    return `
+      float dimensionGearFixedMask${index} = clamp(${bounds}, 0.0, 1.0);
+      ${brightness}
+      diffuseColor.rgb = mix(
+        diffuseColor.rgb,
+        dimensionGearFixedColor${index},
+        clamp(dimensionGearFixedMask${index}, 0.0, 1.0)
+      );
+    `
+  }).join('\n')
 }
 
 function physicalMaterial(
@@ -229,39 +294,97 @@ function applyWholeMesh(
   materialKey?: string,
   finish?: ComponentVisualBinding['finish'],
   colorMapMode?: 'colorize' | 'multiply' | 'replace',
+  colorizeDetail?: {
+    max: number
+    min: number
+    sourceHigh: number
+    sourceLow: number
+  },
 ) {
   mesh.material = mapMaterial(mesh.material, (base) => {
     const material = physicalMaterial(base, component.color, materialKey, finish, colorMapMode)
-    if (component.linkedColor && component.linkedColorMaskPath) {
-      const linkedColor = new Color(component.linkedColor)
-      const linkedMask = loadSurfaceTexture(
+    const shouldColorizeMap = colorMapMode === 'colorize' && Boolean((base as Material & { map?: Texture | null }).map)
+    const fixedColorMasks = component.binding.fixedColorMasks ?? []
+    const linkedColor = component.linkedColor ? new Color(component.linkedColor) : undefined
+    const linkedMask = component.linkedColor && component.linkedColorMaskPath
+      ? loadSurfaceTexture(
         `linked-color:${component.linkedColorMaskPath}`,
         component.linkedColorMaskPath,
         NoColorSpace,
       )
+      : undefined
+    if (shouldColorizeMap || linkedColor || fixedColorMasks.length) {
+      const fixedColors = fixedColorMasks.map((mask) => new Color(mask.color))
       material.onBeforeCompile = (shader) => {
-        shader.uniforms.dimensionGearLinkedColor = { value: linkedColor }
-        shader.uniforms.dimensionGearLinkedColorMask = { value: linkedMask }
-        shader.fragmentShader = `
-          uniform vec3 dimensionGearLinkedColor;
-          uniform sampler2D dimensionGearLinkedColorMask;
-        ${shader.fragmentShader}`.replace('#include <map_fragment>', `
-          #include <map_fragment>
-          #ifdef USE_MAP
+        if (linkedColor && linkedMask) {
+          shader.uniforms.dimensionGearLinkedColor = { value: linkedColor }
+          shader.uniforms.dimensionGearLinkedColorMask = { value: linkedMask }
+        }
+        fixedColors.forEach((color, index) => {
+          shader.uniforms[`dimensionGearFixedColor${index}`] = { value: color }
+        })
+        const linkedUniforms = linkedColor && linkedMask
+          ? `
+            uniform vec3 dimensionGearLinkedColor;
+            uniform sampler2D dimensionGearLinkedColorMask;
+          `
+          : ''
+        const fixedUniforms = fixedColors
+          .map((_, index) => `uniform vec3 dimensionGearFixedColor${index};`)
+          .join('\n')
+        const linkedColorExpression = shouldColorizeMap
+          ? 'dimensionGearLinkedColor * dimensionGearDetail'
+          : 'dimensionGearLinkedColor * sampledDiffuseColor.rgb'
+        const linkedShader = linkedColor && linkedMask
+          ? `
             float dimensionGearLinkedMask = step(
               0.5,
               texture2D(dimensionGearLinkedColorMask, vMapUv).r
             );
             diffuseColor.rgb = mix(
               diffuseColor.rgb,
-              dimensionGearLinkedColor * sampledDiffuseColor.rgb,
+              ${linkedColorExpression},
               dimensionGearLinkedMask
             );
-          #endif
-        `)
+          `
+          : ''
+        const mapShader = shouldColorizeMap
+          ? `
+            #ifdef USE_MAP
+              vec4 sampledDiffuseColor = texture2D(map, vMapUv);
+              float dimensionGearDetailLuminance = dot(
+                sampledDiffuseColor.rgb,
+                vec3(0.2126, 0.7152, 0.0722)
+              );
+              float dimensionGearDetail = mix(
+                ${(colorizeDetail?.min ?? 0.52).toFixed(4)},
+                ${(colorizeDetail?.max ?? 1.08).toFixed(4)},
+                smoothstep(
+                  ${(colorizeDetail?.sourceLow ?? 0.015).toFixed(4)},
+                  ${(colorizeDetail?.sourceHigh ?? 0.19).toFixed(4)},
+                  dimensionGearDetailLuminance
+                )
+              );
+              diffuseColor.rgb *= dimensionGearDetail;
+              diffuseColor.a *= sampledDiffuseColor.a;
+              ${linkedShader}
+              ${fixedColorMaskShader(fixedColorMasks)}
+            #endif
+          `
+          : `
+            #include <map_fragment>
+            #ifdef USE_MAP
+              ${linkedShader}
+              ${fixedColorMaskShader(fixedColorMasks)}
+            #endif
+          `
+        shader.fragmentShader = `
+          ${linkedUniforms}
+          ${fixedUniforms}
+        ${shader.fragmentShader}`.replace('#include <map_fragment>', mapShader)
       }
       material.customProgramCacheKey = () => (
-        `dimension-gear-linked-color:${component.linkedColorMaskPath}:${linkedColor.getHexString()}`
+        `dimension-gear-whole-mesh:${colorMapMode ?? ''}:${component.linkedColorMaskPath ?? ''}:${linkedColor?.getHexString() ?? ''}:${JSON.stringify(fixedColorMasks)}`
       )
     }
     if (component.binding.emissive && component.color) {
@@ -630,6 +753,7 @@ export function applySceneConfiguration(scene: Object3D, input: ApplyConfigurati
         surface?.materialKey,
         component.binding.finish,
         productBinding.colorMapMode,
+        productBinding.colorizeDetail,
       )
     }
     const regions = matching.filter((component) => (

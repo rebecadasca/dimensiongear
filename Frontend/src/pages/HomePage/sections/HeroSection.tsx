@@ -17,7 +17,7 @@ export function HeroSection() {
           <br />
           tehnologia noastră 3D în timp real
         </p>
-        <Link className={styles.action} to="/products">
+        <Link className={styles.action} to="/customise">
           Începe acum
         </Link>
       </div>

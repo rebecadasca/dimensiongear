@@ -2,6 +2,7 @@ import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import { Decimal } from 'decimal.js'
 import { useCatalog } from '../../features/catalog/CatalogContext'
+import { getProductCardImage } from '../../features/catalog/getProductCardImage'
 import type { Product, ProductCategory } from '../../features/catalog/types'
 import styles from './ProductsPage.module.scss'
 
@@ -37,11 +38,6 @@ const validCategories: ProductCategory[] = [
   'keyboard',
   'mouse',
 ]
-
-const cardImageOverrides: Record<string, string> = {
-  'logitech-mx-master-3s-pale-gray': 'image-01',
-  'nova-s6-air-3d-custom-wireless': 'image-03',
-}
 
 const priceFormatter = new Intl.NumberFormat('ro-RO', {
   maximumFractionDigits: 2,
@@ -256,16 +252,6 @@ function formatPrice(price: string) {
   return `${priceFormatter.format(new Decimal(price).toNumber())} RON`
 }
 
-function getCardImage(product: Product) {
-  const preferredImageId = cardImageOverrides[product.id]
-
-  return (
-    product.gallery.find((image) => image.id === preferredImageId) ??
-    product.gallery.find((image) => image.isPrimary) ??
-    product.gallery[0]
-  )
-}
-
 export function ProductsPage() {
   const { error, isLoading, products } = useCatalog()
   const [searchParams] = useSearchParams()
@@ -277,7 +263,7 @@ export function ProductsPage() {
   const productCards = useMemo<ProductCard[]>(
     () =>
       products.map((product) => {
-        const primaryImage = getCardImage(product)
+        const primaryImage = getProductCardImage(product)
 
         return {
           imageAlt: primaryImage?.alt ?? product.name,
@@ -428,10 +414,6 @@ export function ProductsPage() {
           </header>
 
           <div className={styles.productsToolbar}>
-            <Link className={styles.backLink} to="/products">
-              <span aria-hidden="true" />
-              Înapoi
-            </Link>
             <strong>{categoryLabels[activeCategory]}</strong>
           </div>
 

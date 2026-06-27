@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useCatalog } from '../../features/catalog/CatalogContext'
-import type { Product, ProductCategory } from '../../features/catalog/types'
+import { getProductCardImage } from '../../features/catalog/getProductCardImage'
+import type { ProductCategory } from '../../features/catalog/types'
 import { formatCurrency } from '../../shared/utils/formatCurrency'
 import styles from '../ProductsPage/ProductsPage.module.scss'
 
@@ -9,21 +10,6 @@ const categoryLabels: Record<ProductCategory, string> = {
   headset: 'Căști',
   keyboard: 'Tastaturi',
   mouse: 'Mouse',
-}
-
-const cardImageOverrides: Record<string, string> = {
-  'logitech-mx-master-3s-pale-gray': 'image-01',
-  'nova-s6-air-3d-custom-wireless': 'image-03',
-}
-
-function getCardImage(product: Product) {
-  const preferredImageId = cardImageOverrides[product.id]
-
-  return (
-    product.gallery.find((image) => image.id === preferredImageId) ??
-    product.gallery.find((image) => image.isPrimary) ??
-    product.gallery[0]
-  )
 }
 
 export function CustomiseProductsPage() {
@@ -52,7 +38,7 @@ export function CustomiseProductsPage() {
         {customizableProducts.length > 0 ? (
           <div className={styles.productsGrid}>
             {customizableProducts.map((product) => {
-              const image = getCardImage(product)
+              const image = getProductCardImage(product)
 
               return (
                 <article className={`${styles.productCard} ${styles.customProduct}`} key={product.id}>

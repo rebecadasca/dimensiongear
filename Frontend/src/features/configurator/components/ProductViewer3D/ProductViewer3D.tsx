@@ -26,9 +26,9 @@ export function ProductViewer3D({
   title = 'Configured product preview',
 }: ProductViewer3DProps) {
   const resolvedModelPath = productId === 'vortex-x7-racing-3d-custom'
-    ? '/models/configurable/vortex-x7.glb'
+    ? '/models/optimized/gaming_chair.glb'
     : productId === 'skullcandy-crusher-custom'
-      ? '/models/configurable/skullcandy-crusher.glb'
+      ? '/models/optimized/casti_skull_x10.glb'
     : productId === 'aether-m9-oled-3d-custom-wireless'
       ? '/models/configurable/aether-m9-glossy.glb'
     : modelPath

@@ -17,9 +17,25 @@ export type MeshSelector = {
   nameIncludes?: string[]
 }
 
+export type FixedColorMask = {
+  brightness?: [number, number]
+  color: string
+  ellipses?: Array<{
+    center: [number, number]
+    innerRadius?: [number, number]
+    radius: [number, number]
+  }>
+  invertBrightness?: boolean
+  regions?: Array<{
+    u: [number, number]
+    v: [number, number]
+  }>
+}
+
 export type ComponentVisualBinding = {
   emissive?: boolean
   finish?: 'glossyPlastic'
+  fixedColorMasks?: FixedColorMask[]
   materialSelectors?: MeshSelector[]
   materialSurface?: boolean
   linkedColorComponentKey?: string
@@ -52,28 +68,58 @@ export type ComponentVisualBinding = {
 
 export type ProductModelBinding = {
   colorMapMode?: 'colorize' | 'multiply' | 'replace'
+  colorizeDetail?: {
+    max: number
+    min: number
+    sourceHigh: number
+    sourceLow: number
+  }
   components: Record<string, ComponentVisualBinding>
 }
 
 const allOfModel = (name: string): MeshSelector[] => [{ nameIncludes: [name] }]
+const iceClawMouseSurface: MeshSelector[] = [
+  { nameIncludes: ['Plane001'] },
+  { nameIncludes: ['Plane.001'] },
+]
 
 export const productModelBindings: Record<string, ProductModelBinding> = {
   'skullcandy-crusher-custom': {
-    colorMapMode: 'multiply',
+    colorizeDetail: {
+      max: 1,
+      min: 1,
+      sourceHigh: 0.22,
+      sourceLow: 0.012,
+    },
+    colorMapMode: 'colorize',
     components: {
       'base-frame': {
-        selectors: [{ materialNames: ['SKULL_BASE_FRAME'] }],
+        selectors: [{ nameIncludes: ['schelet'] }],
       },
       'audio-cups': {
-        linkedColorComponentKey: 'base-frame',
-        linkedColorMaskPath: '/models/configurable/skullcandy-crusher-textures/logo-mask.png',
-        selectors: [{ materialNames: ['SKULL_AUDIO_CUPS'] }],
+        fixedColorMasks: [{
+          brightness: [0.12, 0.34],
+          color: '#050505',
+          ellipses: [{
+            center: [0.535, 0.37],
+            radius: [0.24, 0.31],
+          }],
+          invertBrightness: true,
+        }],
+        selectors: [{ nameIncludes: ['boxa'] }],
       },
       'ear-cushions': {
-        selectors: [{ materialNames: ['SKULL_EAR_CUSHIONS'] }],
+        fixedColorMasks: [{
+          color: '#050505',
+          ellipses: [{
+            center: [0.38, 0.26],
+            radius: [0.1, 0.09],
+          }],
+        }],
+        selectors: [{ nameIncludes: ['bureti'] }],
       },
       'headband-cushion': {
-        selectors: [{ materialNames: ['SKULL_HEADBAND_CUSHION'] }],
+        selectors: [{ nameIncludes: ['burete'] }],
       },
     },
   },
@@ -88,24 +134,10 @@ export const productModelBindings: Record<string, ProductModelBinding> = {
   'vertex-k68-pastel-3d-custom': {
     components: {
       case: {
-        priority: 1,
-        region: 'fallback',
-        regionMode: 'component',
         selectors: [{ materialNames: ['Chassis'] }],
       },
       keycaps: { selectors: [{ materialNames: ['Small_Buttons'] }] },
       'accent-keys': { selectors: [{ materialNames: ['Big_Buttons'] }] },
-      'decorative-elements': {
-        priority: 20,
-        regionMode: 'component',
-        region: [
-          { x: [0, 0.045] },
-          { x: [0.955, 1] },
-          { y: [0, 0.08] },
-          { y: [0.92, 1] },
-        ],
-        selectors: [{ materialNames: ['Chassis'] }],
-      },
     },
   },
   'aether-m9-oled-3d-custom-wireless': {
@@ -127,7 +159,7 @@ export const productModelBindings: Record<string, ProductModelBinding> = {
         priority: 1,
         region: 'fallback',
         regionMode: 'component',
-        selectors: allOfModel('Plane001'),
+        selectors: iceClawMouseSurface,
       },
       'side-panel': {
         priority: 20,
@@ -136,13 +168,13 @@ export const productModelBindings: Record<string, ProductModelBinding> = {
           { x: [0, 0.3], y: [0.25, 0.65], z: [0, 0.7] },
           { x: [0.7, 1], y: [0.25, 0.65], z: [0, 0.7] },
         ],
-        selectors: allOfModel('Plane001'),
+        selectors: iceClawMouseSurface,
       },
       'scroll-wheel': {
         priority: 50,
         regionMode: 'component',
         region: [{ x: [0.44, 0.52], y: [0.76, 0.84], z: [0.63, 0.84] }],
-        selectors: allOfModel('Plane001'),
+        selectors: iceClawMouseSurface,
       },
       buttons: {
         priority: 30,
@@ -151,11 +183,11 @@ export const productModelBindings: Record<string, ProductModelBinding> = {
           { x: [0.28, 0.34], y: [0.66, 0.71], z: [0.62, 0.79] },
           { x: [0.58, 0.64], y: [0.66, 0.71], z: [0.64, 0.81] },
         ],
-        selectors: allOfModel('Plane001'),
+        selectors: iceClawMouseSurface,
       },
       'illuminated-logo': {
         priority: 60,
-        selectors: allOfModel('Plane001'),
+        selectors: iceClawMouseSurface,
         textureMask: {
           brightness: [0.04, 0.12],
           emissiveStrength: 0.75,
@@ -169,12 +201,25 @@ export const productModelBindings: Record<string, ProductModelBinding> = {
     components: {
       seat: {
         materialSurface: true,
-        materialSelectors: [{ nameIncludes: ['CHAIR_SEAT_', 'CHAIR_BACK_', 'CHAIR_PILLOW_'] }],
-        selectors: [{ nameIncludes: ['CHAIR_SEAT_'] }],
+        materialSelectors: [{
+          ancestorIncludes: ['Sezut', 'Spatar', 'Perna gat', 'Perna_Gat', 'Perna spate', 'Perna_spate'],
+        }],
+        selectors: [{ ancestorIncludes: ['Sezut'] }],
       },
-      backrest: { selectors: [{ nameIncludes: ['CHAIR_BACK_'] }] },
-      pillow: { selectors: [{ nameIncludes: ['CHAIR_PILLOW_'] }] },
-      accents: { selectors: [{ nameIncludes: ['CHAIR_ACCENT_'] }] },
+      backrest: { selectors: [{ ancestorIncludes: ['Spatar'] }] },
+      'neck-pillow': {
+        selectors: [
+          { ancestorIncludes: ['Perna gat'] },
+          { ancestorIncludes: ['Perna_Gat'] },
+        ],
+      },
+      'back-pillow': {
+        selectors: [
+          { ancestorIncludes: ['Perna spate'] },
+          { ancestorIncludes: ['Perna_spate'] },
+        ],
+      },
+      accents: { selectors: [{ ancestorIncludes: ['Accent'] }] },
     },
   },
   'aero-comfort-z9-3d-custom': {

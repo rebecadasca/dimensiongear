@@ -82,7 +82,10 @@ for (const category of categories) {
 function product(input) {
   const productGallery = gallery(input.slug, input.name, input.imageCount).map((image, index) => (
     input.galleryColorIds?.[index] ? { ...image, colorId: input.galleryColorIds[index] } : image
-  ));
+  )).map((image) => ({
+    ...image,
+    isPrimary: image.id === (input.primaryImageId ?? "image-01")
+  }));
   const baseProduct = {
     categorieId: categoryIds[input.category],
     sku: input.sku,
@@ -94,8 +97,8 @@ function product(input) {
     tipProdus: input.customization ? "PERSONALIZABIL" : "SIMPLU",
     pretBaza: money(input.currentPrice),
     moneda: "RON",
-    rating: input.rating,
-    numarReviewuri: input.reviewCount,
+    rating: 0,
+    numarReviewuri: 0,
     status: "ACTIV",
     imagini: productGallery.map((image) => image.src),
     galerie: productGallery,
@@ -202,12 +205,13 @@ const catalog = [
     customization: {
       estimatedProductionDays: 7,
       maxEstimatedPrice: "1199.99",
-      model3DUrl: "/models/configurable/skullcandy-crusher.glb",
+      model3DUrl: "/models/optimized/casti_skull_x10.glb",
       startingPrice: "899.99"
     },
     imageCount: 4,
     longDescription: "Skullcandy Crusher Wireless Custom este o cască premium de gaming pentru utilizatorii care vor să personalizeze produsul înainte de comandă. Prin configuratorul 3D, clienții pot alege culori separate pentru cadrul de bază, cupele audio rigide, pernuțele pentru urechi și banda de susținere, apoi pot previzualiza designul final în timp real. Logo-ul urmează culoarea cadrului. Căștile includ difuzoare de neodim de 50 mm reglate precis, conexiune wireless cu latență redusă, sunet surround imersiv și microfon omnidirecțional detașabil.",
     name: "Skullcandy Crusher Wireless Custom",
+    primaryImageId: "image-04",
     previousPrice: "999.99",
     rating: 4.8,
     reviewCount: 126,
@@ -320,7 +324,7 @@ const catalog = [
       startingPrice: "579.99"
     },
     imageCount: 4,
-    longDescription: "Vertex K68 Pastel 3D Custom este o tastatură mecanică compactă pentru utilizatorii care vor să personalizeze atât aspectul, cât și funcționalitatea. Clienții pot configura în timp real culorile carcasei, keycapurile, tastele de accent și elementele decorative. Layoutul compact 65% păstrează săgețile și controalele esențiale de navigare, eliminând tastatura numerică.",
+    longDescription: "Vertex K68 Pastel 3D Custom este o tastatură mecanică compactă pentru utilizatorii care vor să personalizeze atât aspectul, cât și funcționalitatea. Clienții pot configura în timp real culorile carcasei, keycapurile și tastele de accent. Layoutul compact 65% păstrează săgețile și controalele esențiale de navigare, eliminând tastatura numerică.",
     name: "Tastatură wireless Vertex K68 Pastel 3D Custom",
     previousPrice: "649.99",
     rating: 4.8,
@@ -339,11 +343,11 @@ const catalog = [
   product({
     category: "mouse",
     colors: [color("black", "Negru", "#171717")],
-    currentPrice: "252.18",
+    currentPrice: "89",
     imageCount: 4,
     longDescription: "Logitech G102 LIGHTSYNC este un mouse de gaming cu fir, creat pentru jucătorii care au nevoie de control avansat și personalizare extinsă. Senzorul optic suportă până la 24.000 DPI. Mouse-ul include 11 butoane programabile, greutăți ajustabile, rotiță cu două moduri, iluminare LIGHTSYNC RGB și stocare pentru profiluri.",
     name: "Mouse gaming Logitech G102 LIGHTSYNC",
-    previousPrice: "449.95",
+    previousPrice: "135",
     rating: 4.74,
     reviewCount: 116,
     shortDescription: "Mouse gaming performant cu fir, senzor de 24.000 DPI, butoane programabile și RGB.",
@@ -362,11 +366,11 @@ const catalog = [
   product({
     category: "mouse",
     colors: [color("black", "Negru", "#111111")],
-    currentPrice: "229.09",
+    currentPrice: "135",
     imageCount: 4,
     longDescription: "Razer Viper V3 HyperSpeed este un mouse gaming wireless ușor, pentru gameplay competitiv rapid și precis. Senzorul optic Razer Focus Pro ajunge la 30.000 DPI și suportă ajustări detaliate pentru stiluri diferite de joc. Designul simetric pentru mâna dreaptă este optimizat pentru grip claw și fingertip, iar cele șase controale programabile pot fi personalizate prin Razer Synapse.",
     name: "Mouse gaming wireless Razer Viper V3 HyperSpeed",
-    previousPrice: "289.99",
+    previousPrice: "190",
     rating: 4.54,
     reviewCount: 13,
     shortDescription: "Mouse gaming wireless ușor, cu senzor de 30.000 DPI și conectivitate HyperSpeed.",
@@ -385,11 +389,11 @@ const catalog = [
   product({
     category: "mouse",
     colors: [color("pale-gray", "Gri deschis", "#E5E5E1")],
-    currentPrice: "499.99",
+    currentPrice: "330",
     imageCount: 4,
     longDescription: "Logitech MX Master 3S este un mouse wireless premium pentru productivitate, precizie și utilizare zilnică extinsă. Senzorul optic Darkfield de 8.000 DPI urmărește precis aproape orice suprafață, inclusiv sticla. Tehnologia Quiet Click reduce zgomotul clickurilor, iar rotița electromagnetică MagSpeed oferă derulare precisă și rapidă. Mouse-ul suportă Bluetooth și Logi Bolt și se poate conecta la până la trei dispozitive.",
     name: "Mouse wireless Logitech MX Master 3S - Gri deschis",
-    previousPrice: "599.99",
+    previousPrice: "380",
     rating: 4.9,
     reviewCount: 86,
     shortDescription: "Mouse wireless ergonomic premium, cu senzor Darkfield de 8.000 DPI și clickuri silențioase.",
@@ -436,20 +440,20 @@ const catalog = [
   }),
   product({
     category: "mouse",
-    currentPrice: "599.99",
+    currentPrice: "270",
     colors: [
       color("black", "Negru", "#111827")
     ],
     customization: {
       estimatedProductionDays: 5,
-      maxEstimatedPrice: "849.99",
+      maxEstimatedPrice: "339",
       model3DUrl: "/models/optimized/ice_claw_mouse.optimized.glb",
-      startingPrice: "599.99"
+      startingPrice: "270"
     },
-    imageCount: 4,
+    imageCount: 3,
     longDescription: "Mouse gaming wireless Ice Claw 3D Custom este un mouse gaming wireless ușor pentru mișcare rapidă, țintire precisă și control personalizat. Prin configuratorul 3D, clienții pot previzualiza finisajul negru al carcasei, panourilor laterale, rotiței, butoanelor și logo-ului iluminat. Mouse-ul suportă wireless 2.4 GHz, Bluetooth și USB-C cu fir.",
     name: "Mouse gaming wireless Ice Claw 3D Custom",
-    previousPrice: "679.99",
+    previousPrice: "339",
     rating: 4.7,
     reviewCount: 39,
     shortDescription: "Mouse gaming wireless ușor, personalizabil, cu iluminare RGB și configurare 3D în timp real.",
@@ -531,11 +535,11 @@ const catalog = [
     customization: {
       estimatedProductionDays: 8,
       maxEstimatedPrice: "1899.99",
-      model3DUrl: "/models/configurable/vortex-x7.glb",
+      model3DUrl: "/models/optimized/gaming_chair.glb",
       startingPrice: "1399.99"
     },
     imageCount: 4,
-    longDescription: "Vortex X7 Racing 3D Custom este un scaun ergonomic de gaming pentru utilizatorii care vor să personalizeze aspectul și setările de confort. Prin configuratorul 3D, clienții pot alege culori separate pentru șezut, spătar, pernă de suport și accente, plus tapițerie textilă, mesh sau piele sintetică. Cadrul, brațele, baza și roțile rămân într-un finisaj negru realist. Designul inspirat de racing include spătar înalt, suporturi laterale ranforsate, zonă căptușită pentru cap, șezut lat, brațe ajustabile, spătar rabatabil, suport lombar și construcție durabilă.",
+    longDescription: "Vortex X7 Racing 3D Custom este un scaun ergonomic de gaming pentru utilizatorii care vor să personalizeze aspectul și setările de confort. Prin configuratorul 3D, clienții pot alege culori separate pentru șezut, spătar, perna de gât, perna de spate și accente, plus tapițerie textilă, mesh sau piele sintetică. Cadrul rămâne într-un finisaj fix realist și nu este inclus în personalizare. Designul inspirat de racing include spătar înalt, suporturi laterale ranforsate, zonă căptușită pentru cap, șezut lat, brațe ajustabile, spătar rabatabil, suport lombar și construcție durabilă.",
     name: "Scaun gaming Vortex X7 Racing 3D Custom",
     previousPrice: "1549.99",
     rating: 4.8,
@@ -641,6 +645,38 @@ for (const item of catalog.filter((productItem) => !removedProductSkus.includes(
     },
     { upsert: true }
   );
+}
+
+if (db.getCollectionNames().includes("recenziiProduse")) {
+  const activeProductSkus = catalog
+    .filter((productItem) => !removedProductSkus.includes(productItem.sku))
+    .map((productItem) => productItem.sku);
+  const activeProductIds = db.produse
+    .find({ sku: { $in: activeProductSkus } }, { projection: { _id: 1 } })
+    .toArray()
+    .map((item) => item._id);
+
+  db.recenziiProduse.aggregate([
+    { $match: { produsId: { $in: activeProductIds } } },
+    {
+      $group: {
+        _id: "$produsId",
+        rating: { $avg: "$rating" },
+        numarReviewuri: { $sum: 1 }
+      }
+    }
+  ]).forEach((stats) => {
+    db.produse.updateOne(
+      { _id: stats._id },
+      {
+        $set: {
+          actualizatLa: now,
+          numarReviewuri: stats.numarReviewuri,
+          rating: Math.round(Number(stats.rating) * 100) / 100
+        }
+      }
+    );
+  });
 }
 
 print(`Catalog seed finalizat: ${categories.length} categorii si ${catalog.length - removedProductSkus.length} produse active.`);

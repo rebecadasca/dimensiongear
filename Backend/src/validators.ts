@@ -72,3 +72,15 @@ export const checkoutSchema = z.object({
   paymentMode: z.enum(['full', 'advance']),
   useLoyaltyPoints: z.boolean().default(false),
 })
+
+const maxWords = (limit: number) => (value: string) =>
+  value.trim().split(/\s+/).filter(Boolean).length <= limit
+
+export const productReviewSchema = z.object({
+  rating: z.number().int().min(1).max(5),
+  text: z.string().trim().min(1).refine(maxWords(200), 'Textul poate avea maximum 200 de cuvinte'),
+})
+
+export const reviewReplySchema = z.object({
+  text: z.string().trim().min(1).refine(maxWords(200), 'Raspunsul poate avea maximum 200 de cuvinte'),
+})

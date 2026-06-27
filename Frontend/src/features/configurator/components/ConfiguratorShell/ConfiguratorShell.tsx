@@ -17,7 +17,7 @@ import type {
 } from '../../types'
 import { apiRequest, jsonBody } from '../../../../shared/api/client'
 import { formatCurrency } from '../../../../shared/utils/formatCurrency'
-import { ProductViewer } from '../ProductViewer/ProductViewer'
+import { ProductViewer, type ScenePreviewVariant } from '../ProductViewer/ProductViewer'
 import { ProductViewer3D } from '../ProductViewer3D/ProductViewer3D'
 import styles from './ConfiguratorShell.module.scss'
 
@@ -28,8 +28,45 @@ type PendingStockSelection = {
   value: CustomizationOptionValue
 }
 
+type ScenePreviewConfig = {
+  rotateActiveLabel: string
+  rotateLabel: string
+  variant: ScenePreviewVariant
+}
+
+const scenePreviewConfigs: Record<string, ScenePreviewConfig> = {
+  'nova-s6-air-3d-custom-wireless': {
+    rotateActiveLabel: 'Opreste rotirea mouse-ului',
+    rotateLabel: 'Roteste mouse-ul',
+    variant: 'desk-mouse',
+  },
+  'skullcandy-crusher-custom': {
+    rotateActiveLabel: 'Opreste rotirea previzualizarii',
+    rotateLabel: 'Roteste previzualizarea',
+    variant: 'headphones-person',
+  },
+  'vortex-x7-racing-3d-custom': {
+    rotateActiveLabel: 'Opreste rotirea previzualizarii',
+    rotateLabel: 'Roteste previzualizarea',
+    variant: 'chair-desk',
+  },
+  'vertex-k68-pastel-3d-custom': {
+    rotateActiveLabel: 'Opreste rotirea tastaturii',
+    rotateLabel: 'Roteste tastatura',
+    variant: 'keyboard-desk',
+  },
+}
+
 const draftKey = (productId: string) => (
-  `dimensiongear-draft-${productId}${productId === 'skullcandy-crusher-custom' ? '-v2' : ''}`
+  `dimensiongear-draft-${productId}${
+    productId === 'skullcandy-crusher-custom'
+      ? '-v2'
+      : productId === 'vortex-x7-racing-3d-custom'
+        ? '-v2'
+        : productId === 'vertex-k68-pastel-3d-custom'
+          ? '-v2'
+        : ''
+  }`
 )
 
 export function ConfiguratorShell({ product }: ConfiguratorShellProps) {
@@ -53,7 +90,7 @@ export function ConfiguratorShell({ product }: ConfiguratorShellProps) {
   const [isScenePreviewOpen, setIsScenePreviewOpen] = useState(false)
   const [isScenePreparing, setIsScenePreparing] = useState(false)
   const [isSceneFullscreen, setIsSceneFullscreen] = useState(false)
-  const [isMouseRotating, setIsMouseRotating] = useState(false)
+  const [isSceneRotating, setIsSceneRotating] = useState(false)
   const [sceneZoomRequest, setSceneZoomRequest] = useState<{ direction: 'in' | 'out'; id: number }>({ direction: 'in', id: 0 })
   const [previewVersion, setPreviewVersion] = useState(0)
   const addToCartButtonRef = useRef<HTMLButtonElement>(null)
@@ -67,7 +104,7 @@ export function ConfiguratorShell({ product }: ConfiguratorShellProps) {
     })), [components, selectionsByOption])
   const totalOptionCount = useMemo(() =>
     components.reduce((count, component) => count + component.options.length, 0), [components])
-  const isIceClawScenePreview = product.id === 'nova-s6-air-3d-custom-wireless'
+  const scenePreviewConfig = scenePreviewConfigs[product.id]
 
   useEffect(() => {
     let cancelled = false
@@ -225,7 +262,7 @@ export function ConfiguratorShell({ product }: ConfiguratorShellProps) {
   }
 
   async function openScenePreview() {
-    if (!isIceClawScenePreview) {
+    if (!scenePreviewConfig) {
       setPreviewVersion((value) => value + 1)
       return
     }
@@ -235,6 +272,7 @@ export function ConfiguratorShell({ product }: ConfiguratorShellProps) {
     }
     setIsScenePreviewOpen(true)
     setIsScenePreparing(true)
+    setIsSceneRotating(false)
     if (!currentUser) {
       setIsScenePreparing(false)
       return
@@ -404,15 +442,16 @@ export function ConfiguratorShell({ product }: ConfiguratorShellProps) {
         </div>
       ) : null}
 
-      {isScenePreviewOpen ? createPortal((
+      {isScenePreviewOpen && scenePreviewConfig ? createPortal((
         <div className={styles.sceneOverlay} ref={scenePreviewRef}>
           <ProductViewer
             components={components}
-            isMouseRotating={isMouseRotating}
+            isPreviewRotating={isSceneRotating}
             modelPath={product.customization?.model3DUrl}
             productId={product.id}
             selectionsByOption={selectionsByOption}
             title={`Previzualizare in spatiu pentru ${product.name}`}
+            variant={scenePreviewConfig.variant}
             zoomRequest={sceneZoomRequest}
           />
           <div className={styles.sceneChrome}>
@@ -425,8 +464,8 @@ export function ConfiguratorShell({ product }: ConfiguratorShellProps) {
               </p>
             ) : null}
             <div className={styles.sceneControls}>
-              <button className={isMouseRotating ? styles.activeSceneControl : ''} onClick={() => setIsMouseRotating((value) => !value)} type="button">
-                {isMouseRotating ? 'Opreste rotirea mouse-ului' : 'Roteste mouse-ul'}
+              <button className={isSceneRotating ? styles.activeSceneControl : ''} onClick={() => setIsSceneRotating((value) => !value)} type="button">
+                {isSceneRotating ? scenePreviewConfig.rotateActiveLabel : scenePreviewConfig.rotateLabel}
               </button>
               <button onClick={() => requestSceneZoom('in')} type="button">Zoom in</button>
               <button onClick={() => requestSceneZoom('out')} type="button">Zoom out</button>
