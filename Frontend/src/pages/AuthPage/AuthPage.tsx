@@ -8,10 +8,10 @@ type AuthMode = 'login' | 'signup'
 type FieldName = 'confirmPassword' | 'email' | 'name' | 'password' | 'terms'
 
 const passwordRules = [
-  { id: 'length', label: 'Parola trebuie sa aiba minim 12 caractere.', test: (value: string) => value.length >= 12 },
-  { id: 'uppercase', label: 'Parola trebuie sa contina cel putin o litera mare.', test: (value: string) => /[A-Z]/.test(value) },
-  { id: 'number', label: 'Parola trebuie sa contina cel putin o cifra.', test: (value: string) => /\d/.test(value) },
-  { id: 'special', label: 'Parola trebuie sa contina un caracter special: ! ? * @ $', test: (value: string) => /[!?*@$]/.test(value) },
+  { id: 'length', label: 'Parola trebuie să aibă minim 12 caractere.', test: (value: string) => value.length >= 12 },
+  { id: 'uppercase', label: 'Parola trebuie să conțină cel puțin o literă mare.', test: (value: string) => /[A-Z]/.test(value) },
+  { id: 'number', label: 'Parola trebuie să conțină cel puțin o cifră.', test: (value: string) => /\d/.test(value) },
+  { id: 'special', label: 'Parola trebuie să conțină un caracter special: ! ? * @ $', test: (value: string) => /[!?*@$]/.test(value) },
 ]
 
 function isValidEmail(value: string) {
@@ -74,7 +74,7 @@ export function AuthPage() {
 
     if (!canSubmit) {
       setTouchedFields({ confirmPassword: true, email: true, name: true, password: true, terms: true })
-      setMessage('Completeaza corect toate campurile inainte de a continua.')
+    setMessage('Completează corect toate câmpurile înainte de a continua.')
       return
     }
 
@@ -94,8 +94,8 @@ export function AuthPage() {
       <section className={styles.page}>
         <div className={styles.layout}>
           <div className={styles.sidePanel}>
-            <h1>Cumpara alaturi de noi</h1>
-            <p>Sesiunea ta securizata DimensionGear este activa.</p>
+            <h1>Cumpără alături de noi</h1>
+            <p>Sesiunea ta securizată DimensionGear este activă.</p>
             <img
               alt=""
               aria-hidden="true"
@@ -109,7 +109,7 @@ export function AuthPage() {
             <h2>Autentificat ca {currentUser.name}</h2>
             <p className={styles.copy}>
               Deschide profilul pentru a gestiona detaliile contului, adresele
-              salvate si istoricul configuratiilor 3D.
+              salvate și istoricul configurațiilor 3D.
             </p>
             <div className={styles.accountMeta}>
               <span>{currentUser.email}</span>
@@ -134,8 +134,8 @@ export function AuthPage() {
           <span className={styles.chevrons} aria-hidden="true">
             &lt;&lt;&lt;
           </span>
-          <h1>Cumpara alaturi de noi</h1>
-          <p>Acceseaza produsele si configuratiile tale DimensionGear</p>
+          <h1>Cumpără alături de noi</h1>
+          <p>Accesează produsele și configurațiile tale DimensionGear</p>
           <img
             alt=""
             aria-hidden="true"
@@ -146,13 +146,13 @@ export function AuthPage() {
 
         <div className={styles.card}>
           <header className={styles.cardHeader}>
-            <h2>{mode === 'signup' ? 'Creeaza un cont' : 'Bine ai revenit'}</h2>
+            <h2>{mode === 'signup' ? 'Creează un cont' : 'Bine ai revenit'}</h2>
             <button
               className={styles.modeLink}
               onClick={() => resetFormState(mode === 'signup' ? 'login' : 'signup')}
               type="button"
             >
-              {mode === 'signup' ? 'autentifica-te' : 'creeaza cont'}
+              {mode === 'signup' ? 'autentifică-te' : 'creează cont'}
             </button>
           </header>
 
@@ -169,7 +169,7 @@ export function AuthPage() {
                   value={name}
                 />
                 {showFieldError('name', isNameValid, name.trim().length > 0) ? (
-                  <small className={styles.fieldHint}>Completeaza numele utilizatorului.</small>
+                  <small className={styles.fieldHint}>Completează numele utilizatorului.</small>
                 ) : null}
               </label>
             ) : null}
@@ -185,7 +185,7 @@ export function AuthPage() {
                 value={email}
               />
               {showFieldError('email', isEmailValidValue, email.trim().length > 0) ? (
-                <small className={styles.fieldHint}>Introdu o adresa de email valida.</small>
+                <small className={styles.fieldHint}>Introdu o adresă de email validă.</small>
               ) : null}
             </label>
 
@@ -221,7 +221,7 @@ export function AuthPage() {
                 </ul>
               ) : null}
               {showFieldError('password', isPasswordValid, password.length > 0) && password.length === 0 ? (
-                <small className={styles.fieldHint}>Completeaza parola.</small>
+                <small className={styles.fieldHint}>Completează parola.</small>
               ) : null}
             </label>
 
@@ -252,7 +252,7 @@ export function AuthPage() {
                     </button>
                   </div>
                   {showFieldError('confirmPassword', isConfirmPasswordValid, confirmPassword.length > 0) ? (
-                    <small className={styles.fieldHint}>Parolele trebuie sa fie identice.</small>
+                    <small className={styles.fieldHint}>Parolele trebuie să fie identice.</small>
                   ) : null}
                 </label>
 
@@ -268,15 +268,15 @@ export function AuthPage() {
                   />
                   <span>
                     Prin crearea contului, sunt de acord cu{' '}
-                    <a href="/auth">Termenii de utilizare</a> si{' '}
-                    <a href="/auth">Politica de confidentialitate</a>
+                    <a href="/auth">Termenii de utilizare</a> și{' '}
+                    <a href="/auth">Politica de confidențialitate</a>
                   </span>
                 </label>
               </>
             ) : null}
 
             <button className={`${styles.submitButton} ${canSubmit ? styles.submitReady : styles.submitDisabled}`} type="submit">
-              {mode === 'signup' ? 'Creeaza contul' : 'Autentificare'}
+              {mode === 'signup' ? 'Creează contul' : 'Autentificare'}
             </button>
           </form>
 
@@ -295,7 +295,7 @@ export function AuthPage() {
               <GoogleLogin
                 containerProps={{ className: styles.googleNativeButton }}
                 logo_alignment="left"
-                onError={() => setMessage('Autentificarea cu Google a esuat.')}
+                onError={() => setMessage('Autentificarea cu Google a eșuat.')}
                 onSuccess={(response) => {
                   if (!response.credential) return
                   void googleLogin(response.credential).then((result) => {
